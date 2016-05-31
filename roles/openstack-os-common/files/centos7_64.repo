@@ -1,0 +1,17 @@
+[centos7_base]
+name = centos7_base
+baseurl = http://mirrors.corp.yunzongnet.com/centos_7/os/
+enabled=1
+gpgcheck=0
+
+[centos7_updates]
+name = centos7_updates
+baseurl = http://mirrors.corp.yunzongnet.com/centos_7/updates/
+enabled=1
+gpgcheck=0
+
+[centos7_extras]
+name = centos7_extras
+baseurl = http://mirrors.corp.yunzongnet.com/centos_7/extras/
+enabled=1
+gpgcheck=0

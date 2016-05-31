@@ -1,0 +1,20 @@
+---
+
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+# service_create 变量主要是让创建service只在一台机器上操作，只创建一次就可以
+
+- name: install and config keystone
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-keystone[0]
+  roles:
+    - { role: openstack-keystone, service_create: once}
+
+- name: install and config keystone
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-keystone:!openstack-keystone[0]
+  roles:
+    - { role: openstack-keystone, service_create: not_create}

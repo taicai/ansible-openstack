@@ -1,0 +1,12 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+- name: create glance database
+  mysql_db: name=glance login_user=root login_password={{ mysql_root_password }} state=present
+
+- name: grant access to the glance database
+  mysql_user: name=glance host="{{ item }}" login_user=root login_password={{ mysql_root_password }} password={{ glance_database_pass }} priv=glance.*:ALL
+  with_items:
+    - localhost
+    - "%"

@@ -1,0 +1,13 @@
+---
+
+#
+# Copyright (c) 2016 feythin lau <feythin.lau@gmail.com>
+#
+
+- name: Install openvswitch service
+  yum: name={{ item }} state=present
+  with_items:
+    - openvswitch
+
+- name: start and enable openvswitch service
+  service: name=openvswitch state=restarted enabled=yes

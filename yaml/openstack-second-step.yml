@@ -1,0 +1,35 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+# 1. 由于升级系统后，repository会加入系统自带的源，这里要删除自带源，用自己内网的centos源
+# 2. 安装和配置网卡。由于每台机器的网卡interface不一样，所以每台机器都要单独指定管理网卡，数据网卡和外网网卡
+
+- name: remove the base yum repository
+  hosts: openstack[1:]
+  remote_user: feiyu.liu
+  sudo: yes
+  tasks:
+    - name: remove the base yum repository
+      shell: rm -f /etc/yum.repos.d/CentOS-*
+
+- name: install openstack common
+  hosts: 10.100.24.31
+  remote_user: feiyu.liu
+  sudo: yes
+  roles:
+    - { role: openstack-os-network, manager_interface: enp2s0, data_interface: enp3s0, wan_interface: enp3s1,  manager_gateway: 10.100.24.254, wan_gateway: 10.200.24.254 }
+
+- name: install openstack common
+  hosts: 10.100.24.32
+  remote_user: feiyu.liu
+  sudo: yes
+  roles:
+    - { role: openstack-os-network, manager_interface: enp2s0, data_interface: enp3s0, wan_interface: enp3s1,  manager_gateway: 10.100.24.254, wan_gateway: 10.200.24.254 }
+
+- name: install openstack common
+  hosts: 10.100.24.33
+  remote_user: feiyu.liu
+  sudo: yes
+  roles:
+    - { role: openstack-os-network, manager_interface: enp2s0, data_interface: enp3s0, wan_interface: enp3s1,  manager_gateway: 10.100.24.254, wan_gateway: 10.200.24.254 }

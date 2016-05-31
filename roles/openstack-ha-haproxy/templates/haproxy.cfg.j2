@@ -1,0 +1,127 @@
+global
+  chroot  /var/lib/haproxy
+  daemon
+  group  haproxy
+  maxconn  4000
+  pidfile  /run/haproxy.pid
+  user  haproxy
+
+defaults
+  log  global
+  maxconn  4000
+  option  redispatch
+  retries  3
+  timeout  http-request 10s
+  timeout  queue 1m
+  timeout  connect 10s
+  timeout  client 1m
+  timeout  server 1m
+  timeout  check 10s
+
+listen monitor
+  bind {{ openstack_ha_vip }}:9300
+  mode http
+  monitor-uri /status
+  stats enable
+  stats uri /admin
+  stats realm Haproxy\ Statistics
+  stats auth {{ haproxy_status_username }}:{{ haproxy_status_password }}
+  stats refresh 5s
+
+listen dashboard_cluster
+  bind {{ openstack_ha_vip }}:80
+  balance  source
+  option  tcpka
+  option  httpchk
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:80 check inter 2000 rise 2 fall 5
+  {% endfor %}
+
+listen galera_cluster
+  bind {{ openstack_ha_vip }}:3306
+  balance  source
+  option  httpchk
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+{% if loop.first %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:3306 check port 9200 inter 2000 rise 2 fall 5
+  {% else %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:3306 backup check port 9200 inter 2000 rise 2 fall 5
+{% endif %}
+  {% endfor %}
+
+listen glance_api_cluster
+  bind {{ openstack_ha_vip }}:9292
+  balance  source
+  option  tcpka
+  option  httpchk
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:9292 check inter 2000 rise 2 fall 5
+  {% endfor %}
+
+listen glance_registry_cluster
+  bind {{ openstack_ha_vip }}:9191
+  balance  source
+  option  tcpka
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:9191 check inter 2000 rise 2 fall 5
+  {% endfor %}
+
+listen keystone_admin_cluster
+  bind {{ openstack_ha_vip }}:35357
+  balance  source
+  option  tcpka
+  option  httpchk
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:35357 check inter 2000 rise 2 fall 5
+  {% endfor %}
+
+listen keystone_public_internal_cluster
+  bind {{ openstack_ha_vip }}:5000
+  balance  source
+  option  tcpka
+  option  httpchk
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:5000 check inter 2000 rise 2 fall 5
+  {% endfor %}
+
+listen nova_compute_api_cluster
+  bind {{ openstack_ha_vip }}:8774
+  balance  source
+  option  tcpka
+  option  httpchk
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:8774 check inter 2000 rise 2 fall 5
+  {% endfor %}
+
+listen nova_metadata_api_cluster
+  bind {{ openstack_ha_vip }}:8775
+  balance  source
+  option  tcpka
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:8775 check inter 2000 rise 2 fall 5
+  {% endfor %}
+
+listen nova_vncproxy_cluster
+  bind {{ openstack_ha_vip }}:6080
+  balance  source
+  option  tcpka
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:6080 check inter 2000 rise 2 fall 5
+  {% endfor %}
+
+listen neutron_api_cluster
+  bind {{ openstack_ha_vip }}:9696
+  balance  source
+  option  tcpka
+  option  httpchk
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:9696 check inter 2000 rise 2 fall 5
+  {% endfor %}

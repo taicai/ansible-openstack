@@ -1,0 +1,12 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+- name: create neutron database
+  mysql_db: name=neutron login_user=root login_password={{ mysql_root_password }} state=present
+
+- name: grant access to the neutron database
+  mysql_user: name=neutron host="{{ item }}" login_user=root login_password={{ mysql_root_password }} password={{ nova_database_pass }} priv=neutron.*:ALL
+  with_items:
+    - localhost
+    - "%"

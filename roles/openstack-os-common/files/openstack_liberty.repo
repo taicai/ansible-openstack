@@ -1,0 +1,5 @@
+[openstack_liberty]
+name = openstack_oncentos7
+baseurl = http://mirrors.corp.yunzongnet.com/openstack_oncentos7/
+enabled=1
+gpgcheck=0

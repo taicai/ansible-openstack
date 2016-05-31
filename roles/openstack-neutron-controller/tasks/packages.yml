@@ -1,0 +1,13 @@
+---
+
+#
+# Copyright (c) 2016 feythin lau <feythin.lau@gmail.com>
+#
+
+- name: Install neutron service
+  yum: name={{ item }} state=present
+  with_items:
+    - openstack-neutron
+    - openstack-neutron-ml2
+    - openstack-neutron-openvswitch
+    - python-neutronclient

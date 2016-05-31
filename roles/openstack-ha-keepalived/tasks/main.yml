@@ -1,0 +1,21 @@
+---
+# This role installs and sets up keepalived
+
+- name: Install keepalived (Centos)
+  yum: name=keepalived state=present
+  tags: keepalived
+  notify: restart keepalived
+
+- name: copy keepalived script
+  copy: src=check_haproxy.sh dest=/etc/keepalived/check_haproxy.sh owner=root group=root mode=0755
+  tags: keepalived
+  notify: restart keepalived
+
+- name: Configurar keepalived
+  template: src=keepalived.conf.j2 dest=/etc/keepalived/keepalived.conf owner=root group=root mode=0644
+  tags: keepalived
+  notify: restart keepalived
+
+- name: Start keepalived
+  service: name=keepalived state=restarted enabled=yes
+  tags: keepalived

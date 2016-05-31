@@ -1,0 +1,56 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: create service indentity
+  shell: source /root/keystone-rc.sh && openstack service create --name keystone --description "OpenStack Identity" identity
+  run_once: true
+
+- name: create public endpoint
+  shell: source /root/keystone-rc.sh && openstack endpoint create --region {{ openstack_region }} identity public {{ keystone_normal_endpoint }}
+  run_once: true
+
+- name: create internal endpoint
+  shell: source /root/keystone-rc.sh && openstack endpoint create --region {{ openstack_region }} identity internal {{ keystone_normal_endpoint }}
+  run_once: true
+
+- name: create admin endpoint
+  shell: source /root/keystone-rc.sh && openstack endpoint create --region {{ openstack_region }} identity admin {{ keystone_admin_endpoint }}
+  run_once: true
+
+- name: create admin project
+  shell: source /root/keystone-rc.sh && openstack project create --domain default --description "Admin Project" admin
+  run_once: true
+
+- name: create admin user for admin project
+  shell: source /root/keystone-rc.sh && openstack user create admin --domain default --password {{ ADMIN_PROJECT_PASS }}
+  run_once: true
+
+- name: create admin role
+  shell: source /root/keystone-rc.sh && openstack role create admin
+  run_once: true
+
+- name: add admin role to admin project
+  shell: source /root/keystone-rc.sh && openstack role add --project admin --user admin admin
+  run_once: true
+
+- name: create service project
+  shell: source /root/keystone-rc.sh && openstack project create --domain default --description "Service Project" service
+  run_once: true
+
+- name: create demo project
+  shell: source /root/keystone-rc.sh && openstack project create --domain default --description "Demo Project" demo
+  run_once: true
+
+- name: create demo user for demo project
+  shell: source /root/keystone-rc.sh && openstack user create demo --domain default --password {{ DEMO_PROJECT_PASS }}
+  run_once: true
+
+- name: create user role
+  shell: source /root/keystone-rc.sh && openstack role create user
+  run_once: true
+
+- name: add user role to demo project
+  shell: source /root/keystone-rc.sh && openstack role add --project demo --user demo user
+  run_once: true

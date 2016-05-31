@@ -1,0 +1,92 @@
+[DEFAULT]
+rpc_backend = rabbit
+auth_strategy = keystone
+osapi_compute_listen = {{ inventory_hostname }}
+my_ip = {{ inventory_hostname }}
+metadata_host = {{ inventory_hostname }}
+metadata_listen = {{ inventory_hostname }}
+metadata_listen_port = 8775
+glance_host = {{ openstack_ha_domain }}
+network_api_class = nova.network.neutronv2.api.API
+security_group_api = neutron
+linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
+firewall_driver = nova.virt.firewall.NoopFirewallDriver
+enabled_apis = osapi_compute,metadata
+verbose = True
+novncproxy_host = {{ inventory_hostname }}
+memcached_servers = {% for keystone_host in groups['openstack-keystone'] -%}
+{{ keystone_host }}:11211
+{%- if not loop.last -%},{%- endif -%}
+{% endfor %}
+
+[api_database]
+[barbican]
+[cells]
+[cinder]
+[conductor]
+[cors]
+[cors.subdomain]
+[database]
+connection = mysql+pymysql://nova:{{ nova_database_pass }}@{{ openstack_ha_domain }}/nova
+[ephemeral_storage_encryption]
+[glance]
+host = {{ openstack_ha_domain }}
+[guestfs]
+[hyperv]
+[image_file_url]
+[ironic]
+[keymgr]
+[keystone_authtoken]
+auth_uri = {{ keystone_auth_uri }}
+auth_url = {{ keystone_auth_url }}
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
+username = {{ keystone_auth_nova_username }}
+password = {{ keystone_auth_nova_password }}
+[libvirt]
+[matchmaker_redis]
+[matchmaker_ring]
+[metrics]
+[neutron]
+url = http://{{ openstack_ha_domain }}:9696
+auth_url = {{ keystone_auth_url }}
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+region_name = {{ openstack_region }}
+project_name = service
+username = {{ keystone_auth_neutron_username }}
+password = {{ keystone_auth_neutron_password }}
+service_metadata_proxy = True
+metadata_proxy_shared_secret = neutron
+[osapi_v21]
+[oslo_concurrency]
+lock_path = /var/lib/nova/tmp
+[oslo_messaging_amqp]
+[oslo_messaging_qpid]
+[oslo_messaging_rabbit]
+rabbit_ha_queues = True
+rabbit_userid = openstack
+rabbit_password = RABBIT_PASS
+rabbit_hosts = {% for keystone_host in groups['openstack-keystone'] -%}
+{{ keystone_host }}:5672
+{%- if not loop.last -%},{%- endif -%}
+{% endfor %}
+
+[oslo_middleware]
+[rdp]
+[serial_console]
+[spice]
+[ssl]
+[trusted_computing]
+[upgrade_levels]
+[vmware]
+[vnc]
+vncserver_listen = {{ inventory_hostname }}
+vncserver_proxyclient_address = {{ inventory_hostname }}
+novncproxy_base_url = http://{{ openstack_ha_domain }}:6080/vnc_auto.html
+[workarounds]
+[xenserver]
+[zookeeper]

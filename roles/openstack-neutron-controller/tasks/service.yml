@@ -1,0 +1,28 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: create neutron user
+  shell: source /root/admin-openrc.sh && openstack user create neutron --domain default --password {{ keystone_auth_neutron_password }}
+  run_once: true
+
+- name: add admin role to service project and neutron user
+  shell: source /root/admin-openrc.sh && openstack role add --project service --user neutron admin
+  run_once: true
+
+- name: create neutron service indentity
+  shell: source /root/admin-openrc.sh && openstack service create --name neutron --description "OpenStack Networking" network
+  run_once: true
+
+- name: create glance public endpoint
+  shell: source /root/admin-openrc.sh && openstack endpoint create --region {{ openstack_region }} network public {{ neutron_endpoint }}
+  run_once: true
+
+- name: create glance internal endpoint
+  shell: source /root/admin-openrc.sh && openstack endpoint create --region {{ openstack_region }} network internal {{ neutron_endpoint }}
+  run_once: true
+
+- name: create glance admin endpoint
+  shell: source /root/admin-openrc.sh && openstack endpoint create --region {{ openstack_region }} network admin {{ neutron_endpoint }}
+  run_once: true

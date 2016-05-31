@@ -1,0 +1,12 @@
+---
+
+#
+# Copyright (c) 2016 feythin lau <feythin.lau@gmail.com>
+#
+
+- name: Install nova compute service
+  yum: name={{ item }} state=present
+  with_items:
+    - openstack-nova-compute
+    - sysfsutils
+    - openstack-utils

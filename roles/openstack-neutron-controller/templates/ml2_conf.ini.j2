@@ -1,0 +1,13 @@
+[ml2]
+type_drivers = flat,vlan
+tenant_network_types = vlan
+mechanism_drivers = openvswitch,l2population
+extension_drivers = port_security
+[ml2_type_flat]
+flat_networks = {{ neutron_ext_network_name }}
+[ml2_type_vlan]
+network_vlan_ranges = {{ neutron_ext_network_name }},{{ neutron_vlan_network_name }}:300:400
+[ml2_type_gre]
+[ml2_type_vxlan]
+[ml2_type_geneve]
+[securitygroup]

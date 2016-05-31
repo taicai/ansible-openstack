@@ -1,0 +1,55 @@
+[DEFAULT]
+router_distributed = True
+core_plugin = ml2
+service_plugins = router
+allow_overlapping_ips = True
+bind_host = {{ inventory_hostname }}
+rpc_backend = rabbit
+auth_strategy = keystone
+notify_nova_on_port_status_changes = True
+notify_nova_on_port_data_changes = True
+nova_url = http://{{ openstack_ha_domain }}:8774/v2
+verbose = True
+[matchmaker_redis]
+[matchmaker_ring]
+[quotas]
+[agent]
+[keystone_authtoken]
+auth_uri = {{ keystone_auth_uri }}
+identity_uri = {{ keystone_auth_uri }}
+admin_tenant_name = %SERVICE_TENANT_NAME%
+admin_user = %SERVICE_USER%
+admin_password = %SERVICE_PASSWORD%
+auth_url = {{ keystone_auth_url }}
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
+username = {{ keystone_auth_neutron_username }}
+password = {{ keystone_auth_neutron_password }}
+[database]
+connection = mysql://neutron:{{ neutron_database_pass }}@{{ openstack_ha_domain }}/neutron
+[nova]
+auth_url = {{ keystone_auth_url }}
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+region_name = {{ openstack_region }}
+project_name = service
+username = {{ keystone_auth_nova_username }}
+password = {{ keystone_auth_nova_password }}
+[oslo_concurrency]
+lock_path = /var/lib/neutron/tmp
+[oslo_policy]
+[oslo_messaging_amqp]
+[oslo_messaging_qpid]
+[oslo_messaging_rabbit]
+rabbit_hosts = {% for keystone_host in groups['openstack-keystone'] -%}
+{{ keystone_host }}:5672
+{%- if not loop.last -%},{%- endif -%}
+{% endfor %}
+
+rabbit_ha_queues = true
+rabbit_userid = openstack
+rabbit_password = RABBIT_PASS
+[qos]

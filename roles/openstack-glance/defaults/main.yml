@@ -1,0 +1,18 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+mysql_root_password: yunzongnet
+glance_database_pass: GLANCE_PASS_YUNZONGNET
+keystone_admin_token: 5b593d4553ff16d35904
+openstack_ha_domain: controllervip1.test.yunzongnet.com
+glance_endpoint: "http://{{ openstack_ha_domain }}:9292"
+keystone_auth_uri: http://{{ openstack_ha_domain }}:5000
+keystone_auth_url: http://{{ openstack_ha_domain }}:35357
+filesystem_store_datadir: /data/glance/images/
+OS_AUTH_URL: "http://{{ inventory_hostname }}:35357/v3"
+ADMIN_PROJECT_PASS: yunzongnetops
+openstack_region: RegionOne
+keystone_auth_glance_username: glance
+keystone_auth_glance_password: glance_pass

@@ -1,0 +1,18 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+mysql_root_password: yunzongnet
+nova_database_pass: NOVA_PASS_YUNZONGNET
+keystone_admin_token: 5b593d4553ff16d35904
+openstack_ha_domain: controllervip1.test.yunzongnet.com
+nova_endpoint: "http://{{ openstack_ha_domain }}:8774/v2/%\\(tenant_id\\)s"
+keystone_auth_uri: http://{{ openstack_ha_domain }}:5000
+keystone_auth_url: http://{{ openstack_ha_domain }}:35357
+OS_AUTH_URL: "http://{{ openstack_ha_domain }}:35357/v3"
+ADMIN_PROJECT_PASS: yunzongnetops
+openstack_region: RegionOne
+keystone_auth_nova_username: nova
+keystone_auth_nova_password: nova_pass
+keystone_auth_neutron_username: neutron
+keystone_auth_neutron_password: neutron_pass

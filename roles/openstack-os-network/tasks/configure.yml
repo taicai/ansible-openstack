@@ -1,0 +1,35 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: configure manager interface
+  template: src=ifcfg-manager.j2 dest=/etc/sysconfig/network-scripts/ifcfg-{{ manager_interface }}
+
+- name: configure wan interface
+  template: src=ifcfg-wan.j2 dest=/etc/sysconfig/network-scripts/ifcfg-{{ wan_interface }}
+
+- name: configure data interface
+  template: src=ifcfg-data.j2 dest=/etc/sysconfig/network-scripts/ifcfg-{{ data_interface }}
+
+- name: configure wan bridge
+  template: src=ifcfg-br-ex.j2 dest=/etc/sysconfig/network-scripts/ifcfg-br-ex
+
+- name: configure data bridge
+  copy: src=ifcfg-br-int dest=/etc/sysconfig/network-scripts/ifcfg-br-int
+
+- name: add bridge br-vlan
+  shell: ovs-vsctl add-br br-vlan
+  run_once: true
+
+- name: add data interface to br-vlan
+  shell: ovs-vsctl add-port br-vlan {{ data_interface }}
+  run_once: true
+
+- name: add bridge br-ex
+  shell: ovs-vsctl add-br br-ex
+  run_once: true
+
+- name: add wan interface to br-ex
+  shell: ovs-vsctl add-port br-ex {{ wan_interface }}
+  run_once: true

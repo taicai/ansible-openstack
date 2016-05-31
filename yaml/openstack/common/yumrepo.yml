@@ -1,0 +1,12 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: remove the base yum repository
+  hosts: openstack
+  remote_user: feiyu.liu
+  sudo: yes
+  tasks:
+    - name: remove the base yum repository
+      shell: rm -f /etc/yum.repos.d/CentOS-*

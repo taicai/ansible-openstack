@@ -1,0 +1,17 @@
+[DEFAULT]
+auth_url = {{ keystone_auth_url }}
+auth_region = {{ openstack_region }}
+admin_tenant_name = %SERVICE_TENANT_NAME%
+admin_user = %SERVICE_USER%
+admin_password = %SERVICE_PASSWORD%
+auth_uri = {{ keystone_auth_uri }}
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
+username = {{ keystone_auth_neutron_username }}
+password = {{ keystone_auth_neutron_password }}
+nova_metadata_ip = {{ openstack_ha_vip }}
+metadata_proxy_shared_secret = neutron
+verbose = True
+[AGENT]

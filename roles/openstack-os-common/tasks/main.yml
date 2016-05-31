@@ -1,0 +1,21 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+- include: repository.yml
+  tag: repository
+
+- include: selinux.yml
+  tag: selinux
+
+- include: hosts.yml
+  tag: hosts
+
+- include: ntp.yml
+  tag: ntp
+
+- include: basesoft.yml
+  tag: basesoft
+
+- include: reboot.yml
+  tag: reboot

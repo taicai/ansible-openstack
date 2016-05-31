@@ -1,0 +1,10 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- include: packages.yml
+  tag: package
+
+- include: configure.yml
+  tag: configure

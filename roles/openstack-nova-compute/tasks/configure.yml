@@ -1,0 +1,13 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+- name: copy nova.conf file
+  template: src=nova.conf.j2 dest=/etc/nova/nova.conf
+  register: modify_nova_ini
+
+- name: enable and restart libvirtd service
+  service: name=libvirtd state=restarted enabled=yes
+
+- name: enable and restart openstack-nova-compute
+  service: name=openstack-nova-compute state=restarted enabled=yes

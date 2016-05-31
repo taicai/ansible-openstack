@@ -1,0 +1,9 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+- name: install chrony ntp service
+  yum: name=chrony state=present
+
+- name: enable chrony service
+  service: name=chronyd state=started enabled=yes

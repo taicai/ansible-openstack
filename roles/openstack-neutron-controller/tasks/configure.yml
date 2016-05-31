@@ -1,0 +1,49 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: set sysctl ip_forward
+  sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes
+
+- name: set sysctl all rp_filter
+  sysctl: name="net.ipv4.conf.all.rp_filter" value=0 sysctl_set=yes state=present reload=yes
+
+- name: set sysctl default rp_filter
+  sysctl: name="net.ipv4.conf.default.rp_filter" value=0 sysctl_set=yes state=present reload=yes
+
+- name: copy neutron.conf file
+  template: src=neutron.conf.j2 dest=/etc/neutron/neutron.conf
+
+- name: copy openvswitch_agent.ini file
+  template: src=openvswitch_agent.ini.j2 dest=/etc/neutron/plugins/ml2/openvswitch_agent.ini
+
+- name: copy ml2_conf.ini file
+  template: src=ml2_conf.ini.j2 dest=/etc/neutron/plugins/ml2/ml2_conf.ini
+
+- name: copy l3_agent.ini file
+  template: src=l3_agent.ini.j2 dest=/etc/neutron/l3_agent.ini
+
+- name: copy dhcp_agent.ini file
+  template: src=dhcp_agent.ini dest=/etc/neutron/dhcp_agent.ini
+
+- name: copy metadata_agent.ini file
+  template: src=metadata_agent.ini dest=/etc/neutron/metadata_agent.ini
+
+- name: set soft link plugin.ini
+  file: src=/etc/neutron/plugins/ml2/ml2_conf.ini dest=/etc/neutron/plugin.ini state=link
+
+- name: copy module 8021q
+  copy: src=8021q.modules dest=/etc/sysconfig/modules/8021q.modules mode=0755
+
+- name: modprobe 8021q
+  command: modprobe 8021q
+
+- name: set db host to local ip
+  shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/neutron/neutron.conf
+
+- name: ensure nova database has been synced
+  command: su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron
+
+- name: copy admin openrc file
+  template: src=admin-openrc.sh.j2 dest=/root/admin-openrc.sh owner=root mode=0600

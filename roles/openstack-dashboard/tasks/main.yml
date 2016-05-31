@@ -1,0 +1,14 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+- name: Install openstack dashboard service
+  yum: name={{ item }} state=present
+  with_items:
+    - openstack-dashboard
+
+- name: copy local_seettings file
+  template: src=local_settings.j2 dest=/etc/openstack-dashboard/local_settings
+
+- name: restarted httpd service
+  service: name=httpd state=restarted

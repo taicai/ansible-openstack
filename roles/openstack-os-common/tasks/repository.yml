@@ -1,0 +1,36 @@
+---
+
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: check yum installed or not
+  shell: which yum
+
+- name: check yum config path exit or not
+  stat: path=/etc/yum.repos.d
+  register: yum_config_stat
+
+- name: check backup config path directory exit or not
+  stat: path=/etc/yum.repos.d.backup
+  register: yum_backup_dir_stat
+
+- name: delete backup yum config dir if exist
+  file: path=/etc/yum.repos.d.backup state=absent
+  when: yum_backup_dir_stat.stat.exists == true
+
+- name: backup yum config path
+  shell: mv /etc/yum.repos.d /etc/yum.repos.d.backup
+  when: yum_config_stat.stat.exists == true
+
+- name: mkdir new yum config path
+  file: path=/etc/yum.repos.d state=directory owner=root group=root mode=0755
+
+- name: copy our own repository
+  copy: src={{ item }} dest=/etc/yum.repos.d/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - centos7_64.repo
+    - openstack_liberty.repo
+
+- name: copy resolv.conf file
+  copy: src=resolv.conf dest=/etc/resolv.conf owner=root group=root mode=0644

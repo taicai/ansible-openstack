@@ -1,0 +1,12 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+- name: create nova database
+  mysql_db: name=nova login_user=root login_password={{ mysql_root_password }} state=present
+
+- name: grant access to the nova database
+  mysql_user: name=nova host="{{ item }}" login_user=root login_password={{ mysql_root_password }} password={{ nova_database_pass }} priv=nova.*:ALL
+  with_items:
+    - localhost
+    - "%"

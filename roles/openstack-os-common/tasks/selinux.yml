@@ -1,0 +1,16 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: stop firewalld
+  service: name=firewalld state=stopped
+
+- name: disable firewalld
+  service: name=firewalld enabled=no
+
+- name: stop selinux
+  shell: /usr/sbin/setenforce 0
+
+- name: disable selinux
+  shell: sed -i 's/enforcing/disabled/g' /etc/selinux/config

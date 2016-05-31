@@ -1,0 +1,8 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+openstack_ha_vip: 10.100.24.180
+haproxy_status_username: yunzongnet
+haproxy_status_password: yunzongnetopsadmin

@@ -1,0 +1,28 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: create glance user
+  shell: source /root/admin-openrc.sh && openstack user create glance --domain default --password {{ keystone_auth_glance_password }}
+  run_once: true
+
+- name: add admin role to service project and glance user
+  shell: source /root/admin-openrc.sh && openstack role add --project service --user glance admin
+  run_once: true
+
+- name: create glance service indentity
+  shell: source /root/admin-openrc.sh && openstack service create --name glance --description "OpenStack Image service" image
+  run_once: true
+
+- name: create glance public endpoint
+  shell: source /root/admin-openrc.sh && openstack endpoint create --region {{ openstack_region }} image public {{ glance_endpoint }}
+  run_once: true
+
+- name: create glance internal endpoint
+  shell: source /root/admin-openrc.sh && openstack endpoint create --region {{ openstack_region }} image internal {{ glance_endpoint }}
+  run_once: true
+
+- name: create glance admin endpoint
+  shell: source /root/admin-openrc.sh && openstack endpoint create --region {{ openstack_region }} image admin {{ glance_endpoint }}
+  run_once: true

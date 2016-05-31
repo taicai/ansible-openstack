@@ -1,0 +1,16 @@
+---
+
+#
+# Copyright (c) 2016 feythin lau <feythin.lau@gmail.com>
+#
+
+- name: Install keystone service and client
+  yum: name={{ item }} state=present
+  with_items:
+    - openstack-keystone
+    - httpd
+    - mod_wsgi
+    - memcached
+    - python-memcached
+    - python-openstackclient
+    - openstack-utils

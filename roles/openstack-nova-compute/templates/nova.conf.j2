@@ -1,0 +1,92 @@
+[DEFAULT]
+metadata_listen = 0.0.0.0
+metadata_host = {{ openstack_ha_domain }}
+vif_plugging_is_fatal = True
+vif_plugging_timeout = 300
+rpc_backend = rabbit
+auth_strategy = keystone
+my_ip = {{ inventory_hostname }}
+network_api_class = nova.network.neutronv2.api.API
+security_group_api = neutron
+linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
+firewall_driver = nova.virt.firewall.NoopFirewallDriver
+compute_driver = libvirt.LibvirtDriver
+verbose = True
+memcached_servers = {% for keystone_host in groups['openstack-keystone'] -%}
+{{ keystone_host }}:11211
+{%- if not loop.last -%},{%- endif -%}
+{% endfor %}
+
+[api_database]
+[barbican]
+[cells]
+[cinder]
+[conductor]
+[cors]
+[cors.subdomain]
+[database]
+connection = mysql+pymysql://nova:{{ nova_database_pass }}@{{ openstack_ha_domain }}/nova
+[ephemeral_storage_encryption]
+[glance]
+host = {{ openstack_ha_domain }}
+[guestfs]
+[hyperv]
+[image_file_url]
+[ironic]
+[keymgr]
+[keystone_authtoken]
+auth_uri = {{ keystone_auth_uri }}
+auth_url = {{ keystone_auth_url }}
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
+username = {{ keystone_auth_nova_username }}
+password = {{ keystone_auth_nova_password }}
+[libvirt]
+virt_type = kvm
+[matchmaker_redis]
+[matchmaker_ring]
+[metrics]
+[neutron]
+url = http://{{ openstack_ha_domain }}:9696
+auth_url = {{ keystone_auth_url }}
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+region_name = {{ openstack_region }}
+project_name = service
+username = {{ keystone_auth_neutron_username }}
+password = {{ keystone_auth_neutron_password }}
+service_metadata_proxy = True
+metadata_proxy_shared_secret = neutron
+[osapi_v21]
+[oslo_concurrency]
+lock_path = /var/lib/nova/tmp
+[oslo_messaging_amqp]
+[oslo_messaging_qpid]
+[oslo_messaging_rabbit]
+rabbit_userid = openstack
+rabbit_password = RABBIT_PASS
+rabbit_hosts = {% for keystone_host in groups['openstack-keystone'] -%}
+{{ keystone_host }}:5672
+{%- if not loop.last -%},{%- endif -%}
+{% endfor %}
+
+rabbit_ha_queues = True
+[oslo_middleware]
+[rdp]
+[serial_console]
+[spice]
+[ssl]
+[trusted_computing]
+[upgrade_levels]
+[vmware]
+[vnc]
+enabled = True
+vncserver_listen = 0.0.0.0
+vncserver_proxyclient_address = $my_ip
+novncproxy_base_url = http://{{ openstack_ha_domain }}:6080/vnc_auto.html
+[workarounds]
+[xenserver]
+[zookeeper]

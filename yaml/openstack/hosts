@@ -1,0 +1,47 @@
+[openstack]
+10.100.24.31 hostname=controller1-wanlin-yunzongnet
+10.100.24.32 hostname=controller2-wanlin-yunzongnet
+10.100.24.33 hostname=controller3-wanlin-yunzongnet
+10.100.24.34 hostname=compute1-wanlin-yunzongnet
+10.100.24.35 hostname=compute2-wanlin-yunzongnet
+10.100.24.31 hostname=controllervip1.test.yunzongnet.com
+[openstack-galera-mariadb]
+10.100.24.31
+10.100.24.32
+10.100.24.33
+[openstack-ha-keepalived]
+10.100.24.32 role=master
+10.100.24.33 role=slave
+[openstack-ha-haproxy]
+10.100.24.31
+10.100.24.32
+10.100.24.33
+[openstack-rabbitmq]
+10.100.24.31
+10.100.24.32 cluster_name=controller1-wanlin-yunzongnet
+10.100.24.33 cluster_name=controller1-wanlin-yunzongnet
+[openstack-keystone]
+10.100.24.31
+10.100.24.32
+10.100.24.33
+[openstack-glance]
+10.100.24.31
+10.100.24.32
+10.100.24.33
+[openstack-nova-controller]
+10.100.24.31 hostname=controller1-wanlin-yunzongnet
+10.100.24.32 hostname=controller2-wanlin-yunzongnet
+10.100.24.33 hostname=controller3-wanlin-yunzongnet
+[openstack-nova-compute]
+10.100.24.34
+10.100.24.35
+[openstack-dashboard]
+10.100.24.31
+10.100.24.32
+10.100.24.33
+[openstack-neutron-compute]
+10.100.24.34
+[openstack-neutron-controller]
+10.100.24.31
+10.100.24.32
+10.100.24.33

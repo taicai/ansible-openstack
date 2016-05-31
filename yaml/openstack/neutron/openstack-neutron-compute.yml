@@ -1,0 +1,13 @@
+---
+
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+# service_create 变量主要是让创建service只在一台机器上操作，只创建一次就可以
+
+- name: install and config neutron compute
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-neutron-compute
+  roles:
+    - { role: openstack-neutron-compute }
