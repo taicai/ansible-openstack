@@ -25,10 +25,10 @@
   template: src=l3_agent.ini.j2 dest=/etc/neutron/l3_agent.ini
 
 - name: copy dhcp_agent.ini file
-  template: src=dhcp_agent.ini dest=/etc/neutron/dhcp_agent.ini
+  template: src=dhcp_agent.ini.j2 dest=/etc/neutron/dhcp_agent.ini
 
 - name: copy metadata_agent.ini file
-  template: src=metadata_agent.ini dest=/etc/neutron/metadata_agent.ini
+  template: src=metadata_agent.ini.j2 dest=/etc/neutron/metadata_agent.ini
 
 - name: set soft link plugin.ini
   file: src=/etc/neutron/plugins/ml2/ml2_conf.ini dest=/etc/neutron/plugin.ini state=link
