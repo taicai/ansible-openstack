@@ -19,11 +19,11 @@
 # - name: reset db host to vip domain
 #  shell: sed -i '/connection/s/{{ inventory_hostname }}/{{ openstack_ha_domain }}/g' /etc/neutron/neutron.conf
 
-# - name: restart neutron
-#   service: name={{ item }} state=restarted enabled=yes
-#   with_items:
-#     - openvswitch
-#     - neutron-server
-#     - neutron-metadata-agent
-#     - neutron-l3-agent
-#     - neutron-openvswitch-agent
+- name: restart neutron
+  service: name={{ item }} state=restarted enabled=yes
+  with_items:
+    - openvswitch
+    - neutron-server
+    - neutron-metadata-agent
+    - neutron-l3-agent
+    - neutron-openvswitch-agent
