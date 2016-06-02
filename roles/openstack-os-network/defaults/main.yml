@@ -8,3 +8,4 @@ data_interface: enp3s0
 wan_interface: enp3s1
 manager_gateway: 10.100.24.254
 wan_gateway: 10.200.24.254
+wan_ip: 10.200.24.32
