@@ -3,7 +3,7 @@
 # Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
 #
 
-- name: create glance user
+- name: create nova user
   shell: source /root/admin-openrc.sh && openstack user create nova --domain default --password {{ keystone_auth_nova_password }}
   run_once: true
 

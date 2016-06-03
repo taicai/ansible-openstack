@@ -15,14 +15,14 @@
   shell: source /root/admin-openrc.sh && openstack service create --name neutron --description "OpenStack Networking" network
   run_once: true
 
-- name: create glance public endpoint
+- name: create neutron public endpoint
   shell: source /root/admin-openrc.sh && openstack endpoint create --region {{ openstack_region }} network public {{ neutron_endpoint }}
   run_once: true
 
-- name: create glance internal endpoint
+- name: create neutron internal endpoint
   shell: source /root/admin-openrc.sh && openstack endpoint create --region {{ openstack_region }} network internal {{ neutron_endpoint }}
   run_once: true
 
-- name: create glance admin endpoint
+- name: create neutron admin endpoint
   shell: source /root/admin-openrc.sh && openstack endpoint create --region {{ openstack_region }} network admin {{ neutron_endpoint }}
   run_once: true
