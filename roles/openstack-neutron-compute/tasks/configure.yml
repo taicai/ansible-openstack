@@ -39,6 +39,7 @@
 - name: modprobe 8021q
   command: modprobe 8021q
 
+- name: copy admin openrc file
   template: src=admin-openrc.sh.j2 dest=/root/admin-openrc.sh owner=root mode=0600
 
 - name: restart neutron
