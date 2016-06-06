@@ -22,3 +22,9 @@
 
 - name: copy admin openrc file
   template: src=admin-openrc.sh.j2 dest=/root/admin-openrc.sh owner=root mode=0600
+
+- name: enable and restart openstack-glance-api
+  service: name=openstack-glance-api state=restarted enabled=yes
+
+- name: enable and restart openstack-glance-registry
+  service: name=openstack-glance-registry state=restarted enabled=yes
