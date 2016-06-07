@@ -14,7 +14,7 @@
 - name: copy admin openrc file
   template: src=admin-openrc.sh.j2 dest=/root/admin-openrc.sh owner=root mode=0600
 
-- name: restart openstack-nova-api
+- name: enable and restart openstack-nova-api
   service: name=openstack-nova-api state=restarted enabled=yes
 
 - name: enable and restart openstack-nova-cert
