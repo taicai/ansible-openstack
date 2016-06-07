@@ -2,7 +2,7 @@
 notification_driver = noop
 verbose = True
 bind_host = {{ inventory_hostname }}
-registry_host = {{ inventory_hostname }}
+registry_host = {{ openstack_ha_domain }}
 [database]
 connection = mysql+pymysql://glance:{{ glance_database_pass }}@{{ openstack_ha_domain }}/glance
 [glance_store]

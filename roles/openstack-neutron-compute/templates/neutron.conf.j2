@@ -42,7 +42,6 @@ lock_path = /var/lib/neutron/tmp
 [oslo_messaging_amqp]
 [oslo_messaging_qpid]
 [oslo_messaging_rabbit]
-rabbit_host = {{ openstack_ha_domain }}
 rabbit_userid = openstack
 rabbit_password = RABBIT_PASS
 rabbit_hosts = {% for keystone_host in groups['openstack-keystone'] -%}
