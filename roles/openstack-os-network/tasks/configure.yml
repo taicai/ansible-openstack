@@ -15,8 +15,8 @@
 - name: configure wan bridge
   template: src=ifcfg-br-ex.j2 dest=/etc/sysconfig/network-scripts/ifcfg-br-ex
 
-- name: configure data bridge
-  copy: src=ifcfg-br-int dest=/etc/sysconfig/network-scripts/ifcfg-br-int
+# - name: configure data bridge
+#   copy: src=ifcfg-br-int dest=/etc/sysconfig/network-scripts/ifcfg-br-int
 
 - name: add bridge br-vlan
   shell: ovs-vsctl add-br br-vlan
