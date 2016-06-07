@@ -43,8 +43,8 @@ listen galera_cluster
   balance  source
   option  mysql-check
   {% for nova_controller in groups['openstack-ha-haproxy'] %}
-  {% if loop.first %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:3306 check port 9200 inter 2000 rise 2 fall 5
-  {% else %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:3306 backup check port 9200 inter 2000 rise 2 fall 5
+{% if loop.first %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:3306 check port 9200 inter 2000 rise 2 fall 5
+{% else %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:3306 backup check port 9200 inter 2000 rise 2 fall 5
   {% endif %}
   {% endfor %}
 
