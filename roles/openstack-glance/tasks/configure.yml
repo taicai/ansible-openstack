@@ -8,11 +8,11 @@
 - name: copy glance-registry.conf file
   template: src=glance-registry.conf.j2 dest=/etc/glance/glance-registry.conf
 
-- name: set db host to local ip
-  shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/glance/glance-api.conf
+# - name: set db host to local ip
+#    shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/glance/glance-api.conf
 
-- name: set db host to local ip
-  shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/glance/glance-registry.conf
+# - name: set db host to local ip
+#  shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/glance/glance-registry.conf
 
 - name: creates glance store directory
   file: path=/data/glance/images state=directory owner=glance group=glance mode=0775 recurse=yes

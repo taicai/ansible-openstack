@@ -26,8 +26,8 @@
 - name: copy keystone.conf file
   template: src=keystone.conf.j2 dest=/etc/keystone/keystone.conf
 
-- name: set db host to local ip
-  shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/keystone/keystone.conf
+# - name: set db host to local ip
+#   shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/keystone/keystone.conf
 
 - name: ensure keystone database has been synced
   command: su -s /bin/sh -c "keystone-manage db_sync" keystone

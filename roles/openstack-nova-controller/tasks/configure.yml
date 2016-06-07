@@ -5,8 +5,8 @@
 - name: copy nova.conf file
   template: src=nova.conf.j2 dest=/etc/nova/nova.conf
 
-- name: set db host to local ip
-  shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/nova/nova.conf
+# - name: set db host to local ip
+#   shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/nova/nova.conf
 
 - name: ensure nova database has been synced
   command: su -s /bin/sh -c "nova-manage db sync" nova

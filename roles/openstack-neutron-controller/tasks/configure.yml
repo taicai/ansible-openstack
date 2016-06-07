@@ -39,8 +39,8 @@
 # - name: modprobe 8021q
 #   command: modprobe 8021q
 
-- name: set db host to local ip
-  shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/neutron/neutron.conf
+# - name: set db host to local ip
+#   shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/neutron/neutron.conf
 
 - name: ensure neutron database has been synced
   command: su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron
