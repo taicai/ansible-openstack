@@ -33,11 +33,11 @@
 - name: set soft link plugin.ini
   file: src=/etc/neutron/plugins/ml2/ml2_conf.ini dest=/etc/neutron/plugin.ini state=link
 
-- name: copy module 8021q
-  copy: src=8021q.modules dest=/etc/sysconfig/modules/8021q.modules mode=0755
+# - name: copy module 8021q
+#   copy: src=8021q.modules dest=/etc/sysconfig/modules/8021q.modules mode=0755
 
-- name: modprobe 8021q
-  command: modprobe 8021q
+# - name: modprobe 8021q
+#   command: modprobe 8021q
 
 - name: set db host to local ip
   shell: sed -i '/connection/s/{{ openstack_ha_domain }}/{{ inventory_hostname }}/g' /etc/neutron/neutron.conf

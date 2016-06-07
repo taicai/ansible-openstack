@@ -8,7 +8,7 @@
 
 - include: configure.yml
   tag: configure
-  when: run_type == "once" 
+  when: run_type == "once"
 
 - include: reboot.yml
   tag: reboot

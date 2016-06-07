@@ -33,3 +33,9 @@
 - name: add wan interface to br-ex
   shell: ovs-vsctl add-port br-ex {{ wan_interface }}
   run_once: true
+
+- name: copy module 8021q
+  copy: src=8021q.modules dest=/etc/sysconfig/modules/8021q.modules mode=0755
+
+- name: modprobe 8021q
+  command: modprobe 8021q
