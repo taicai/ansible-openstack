@@ -10,5 +10,5 @@ keystone_admin_endpoint: "http://{{ openstack_ha_domain }}:35357/v2.0"
 keystone_normal_endpoint: "http://{{ openstack_ha_domain }}:5000/v2.0"
 ADMIN_PROJECT_PASS: yunzongnetops
 DEMO_PROJECT_PASS: yunzongnetgest
-OS_AUTH_URL: "http://{{ inventory_hostname }}:35357/v3"
+OS_AUTH_URL: "http://{{ openstack_ha_domain }}:35357/v3"
 openstack_region: RegionOne

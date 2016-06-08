@@ -11,7 +11,7 @@ glance_endpoint: "http://{{ openstack_ha_domain }}:9292"
 keystone_auth_uri: http://{{ openstack_ha_domain }}:5000
 keystone_auth_url: http://{{ openstack_ha_domain }}:35357
 filesystem_store_datadir: /data/glance/images/
-OS_AUTH_URL: "http://{{ inventory_hostname }}:35357/v3"
+OS_AUTH_URL: "http://{{ openstack_ha_domain }}:35357/v3"
 ADMIN_PROJECT_PASS: yunzongnetops
 openstack_region: RegionOne
 keystone_auth_glance_username: glance

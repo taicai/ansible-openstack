@@ -9,7 +9,7 @@ openstack_ha_domain: controllervip1.test.yunzongnet.com
 neutron_endpoint: "http://{{ openstack_ha_domain }}:9696"
 keystone_auth_uri: http://{{ openstack_ha_domain }}:5000
 keystone_auth_url: http://{{ openstack_ha_domain }}:35357
-OS_AUTH_URL: "http://{{ inventory_hostname }}:35357/v3"
+OS_AUTH_URL: "http://{{ openstack_ha_domain }}:35357/v3"
 ADMIN_PROJECT_PASS: yunzongnetops
 openstack_region: RegionOne
 keystone_auth_nova_username: nova
