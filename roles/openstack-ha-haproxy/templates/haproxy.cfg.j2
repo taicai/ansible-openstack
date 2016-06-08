@@ -128,5 +128,6 @@ listen neutron_api_cluster
   option  httpchk
   option  tcplog
   {% for nova_controller in groups['openstack-ha-haproxy'] %}
-server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:9696 check inter 2000 rise 2 fall 5
+{% if loop.first %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:9696 check inter 2000 rise 2 fall 5
+{% endif %}
   {% endfor %}
