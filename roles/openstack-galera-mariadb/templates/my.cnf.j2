@@ -29,6 +29,22 @@ symbolic-links                  = 0
 
 skip-name-resolve
 
+wsrep_provider="/usr/lib64/galera/libgalera_smm.so"
+wsrep_provider_options="gcache.size=2G"
+wsrep_cluster_name={{ galera_cluster_name }}
+wsrep_sst_method=rsync
+wsrep_node_name={{ ansible_fqdn }}
+{% if galera_master == "master" %}
+wsrep_cluster_address=gcomm://
+{% else %}
+wsrep_cluster_address=gcomm://{% for cluster in groups['openstack-galera-mariadb'] -%}
+{{ cluster }}
+{%- if not loop.last -%},{%- endif -%}
+{%- endfor -%}
+{% endif %}
+
+wsrep_node_address={{ inventory_hostname  }}
+
 [mysqld_safe]
 log-error                       = /var/log/mariadb/mariadb.log
 pid-file                        = /var/run/mariadb/mariadb.pid
