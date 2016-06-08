@@ -52,3 +52,6 @@
 
 - name: restart memcached
   service: name=memcached state=restarted enabled=yes
+
+- name: sleep 10s
+  shell: sleep 10
