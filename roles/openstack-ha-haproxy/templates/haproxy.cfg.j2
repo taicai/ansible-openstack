@@ -2,7 +2,6 @@ global
   chroot  /var/lib/haproxy
   daemon
   group  haproxy
-  maxconn  4000
   pidfile  /run/haproxy.pid
   user  haproxy
 
@@ -51,6 +50,18 @@ listen galera_cluster
   {% for nova_controller in groups['openstack-ha-haproxy'] %}
 {% if loop.last %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:3306 check inter 2000 rise 2 fall 5
 {% else %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:3306 backup check inter 2000 rise 2 fall 5
+{% endif %}
+  {% endfor %}
+
+listen rabbitmq_cluster
+  bind {{ openstack_ha_vip }}:5672
+  balance roundrobin
+  mode  tcp
+  option  tcpka
+  option  tcplog
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+{% if loop.first %}
+{% else %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:5672 check inter 2000 rise 2 fall 5
 {% endif %}
   {% endfor %}
 

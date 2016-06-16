@@ -1,11 +1,11 @@
 [DEFAULT]
 admin_token = {{ keystone_admin_token }}
 verbose = True
-rabbit_hosts = {% for keystone_host in groups['openstack-keystone'] -%}
-{{ keystone_host }}:5672
-{%- if not loop.last -%},{%- endif -%}
-{% endfor %}
-
+#rabbit_hosts = {% for keystone_host in groups['openstack-keystone'] -%}
+#{{ keystone_host }}:5672
+#{%- if not loop.last -%},{%- endif -%}
+#{% endfor %}
+rabbit_hosts = {{ openstack_ha_domain }}:5672
 rabbit_ha_queues = True
 [assignment]
 [auth]
