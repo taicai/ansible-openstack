@@ -70,10 +70,6 @@ lock_path = /var/lib/nova/tmp
 rabbit_ha_queues = True
 rabbit_userid = openstack
 rabbit_password = RABBIT_PASS
-#rabbit_hosts = {% for keystone_host in groups['openstack-keystone'] -%}
-#{{ keystone_host }}:5672
-#{%- if not loop.last -%},{%- endif -%}
-#{% endfor %}
 rabbit_hosts = {{ openstack_ha_domain }}:5672
 
 [oslo_middleware]
