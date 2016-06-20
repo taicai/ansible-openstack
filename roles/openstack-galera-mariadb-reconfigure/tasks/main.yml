@@ -1,0 +1,10 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: mariaDB configuration file
+  template: src=my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0644
+
+- name: galera configuration file
+  template: src=galera.cnf.j2 dest=/etc/my.cnf.d/galera.cnf owner=root group=root mode=0640
