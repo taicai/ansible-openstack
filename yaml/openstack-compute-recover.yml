@@ -2,17 +2,21 @@
 #
 # Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
 #
+# 步骤1：修改hosts文件，在openstack组加上新的compute(如果是新增compute)，在openstack-nova-compute openstack-neutron-compute 添加要恢复或者新增的compute并注释掉之前的compute。
+# 步骤2：修改openstack-compute-recover.yml 文件，修改对应的hosts和一些参数。
+# 步骤3：系统初始化完成后注释掉在执行；网络初始化后注释掉再执行，最后安装nova-compute和Neutron服务。
 
 # 1.系统初始化
 - name: install openstack common
-  hosts: 10.100.24.40
+  hosts: 10.100.24.32
   remote_user: feiyu.liu
   sudo: yes
   roles:
-    - role: openstack-os-commom
+    - role: openstack-os-common
+
 # 2. 网络初始化
 - name: remove the base yum repository
-  hosts: 10.100.24.40
+  hosts: 10.100.24.32
   remote_user: feiyu.liu
   sudo: yes
   tasks:
@@ -20,7 +24,7 @@
       shell: rm -f /etc/yum.repos.d/CentOS-*
 
 - name: install openstack common
-  hosts: 10.100.24.40
+  hosts: 10.100.24.32
   remote_user: feiyu.liu
   sudo: yes
   roles:
