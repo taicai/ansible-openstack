@@ -2,13 +2,13 @@
 #
 # Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
 #
-# 步骤1：修改hosts文件，在openstack组加上新的compute，在openstack-nova-compute openstack-neutron-compute 添加新的compute并注释掉之前的compute。
-# 步骤2：修改openstack-compute-recover.yml 文件，修改对应的hosts和一些参数。
-# 步骤3：系统初始化完成后注释掉在执行；网络初始化后注释掉再执行，最后安装nova-compute和Neutron服务。
+# 步骤1：修改hosts文件，在[openstack-controller-recover]组里添加要恢复的节点
+# 步骤2：修改openstack-controller-recover.yml 文件，修改对应的hosts和一些参数。
+# 步骤3：系统初始化完成后注释掉在执行；网络初始化后注释掉再执行，最后安装controller的一系列服务。
 
 # 1.系统初始化
 - name: install openstack common
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   remote_user: feiyu.liu
   sudo: yes
   roles:
@@ -16,7 +16,7 @@
 
 # 2. 网络初始化
 - name: remove the base yum repository
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   remote_user: feiyu.liu
   sudo: yes
   tasks:
@@ -24,7 +24,7 @@
       shell: rm -f /etc/yum.repos.d/CentOS-*
 
 - name: install openstack common
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   remote_user: feiyu.liu
   sudo: yes
   roles:
@@ -34,7 +34,7 @@
 - name: install mariadb cluster
   remote_user: feiyu.liu
   sudo: yes
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   roles:
     - { role: openstack-galera-mariadb, galera_master: slave, bind_address: "{{ inventory_hostname }}" }
 
@@ -42,7 +42,7 @@
 - name: install rabbitmq slave
   remote_user: feiyu.liu
   sudo: yes
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   roles:
      - { role: openstack-rabbitmq, rabbitmq_master: slave, openstack_ha_domain: 10.100.24.187 }
 
@@ -58,7 +58,7 @@
 # - name: install and config keepalived
 #   remote_user: feiyu.liu
 #   sudo: yes
-#   hosts: 10.100.24.36
+#   hosts: openstack-controller-recover
 #   roles:
 #     - { role: openstack-ha-keepalived, keepalived_vip_ip: "10.100.24.187", keepalived_role: "BACKUP" , keepalived_vip_iface: "eth0" }
 
@@ -66,7 +66,7 @@
 - name: install and config keystone
   remote_user: feiyu.liu
   sudo: yes
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   roles:
     - { role: openstack-keystone, service_create: not_create, openstack_ha_domain: 10.100.24.187 }
 
@@ -74,7 +74,7 @@
 - name: install and config the last glance hosts
   remote_user: feiyu.liu
   sudo: yes
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   roles:
     - { role: openstack-glance, service_create: not_create, openstack_ha_domain: 10.100.24.187 }
 
@@ -82,7 +82,7 @@
 - name: install and config nova controller the last hosts
   remote_user: feiyu.liu
   sudo: yes
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   roles:
     - { role: openstack-nova-controller, service_create: not_create, openstack_ha_domain: 10.100.24.187 }
 
@@ -90,7 +90,7 @@
 - name: install and config neutron controller the last hosts
   remote_user: feiyu.liu
   sudo: yes
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   roles:
     - { role: openstack-neutron-controller, service_create: not_create, openstack_ha_domain: 10.100.24.187 }
 
@@ -98,6 +98,6 @@
 - name: install and config openstack dashboard
   remote_user: feiyu.liu
   sudo: yes
-  hosts: 10.100.24.36
+  hosts: openstack-controller-recover
   roles:
     - { role: openstack-dashboard }

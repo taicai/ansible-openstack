@@ -58,3 +58,6 @@
 [openstack-neutron-compute]
 #10.100.24.32
 10.100.24.40
+
+[openstack-controller-recover]
+10.100.24.34
