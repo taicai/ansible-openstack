@@ -59,8 +59,10 @@ listen rabbitmq_cluster
   mode  tcp
   option  tcpka
   option  tcplog
-  {% for nova_controller in groups['openstack-ha-haproxy'] %}{% if loop.first %}{% else %}
-server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:5672 check inter 2000 rise 2 fall 5{% endif %}
+  {% for nova_controller in groups['openstack-ha-haproxy'] %}
+{% if loop.first %}
+{% else %}server {{ hostvars[nova_controller].hostname }} {{ nova_controller }}:5672 check inter 2000 rise 2 fall 5
+{% endif %}
   {% endfor %}
 
 listen glance_api_cluster
