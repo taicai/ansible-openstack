@@ -12,6 +12,7 @@ security_group_api = neutron
 linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
 firewall_driver = nova.virt.firewall.NoopFirewallDriver
 enabled_apis = osapi_compute,metadata
+default_availability_zone = wanlinzone
 verbose = True
 novncproxy_host = {{ inventory_hostname }}
 memcached_servers = {% for keystone_host in groups['openstack-keystone'] -%}
