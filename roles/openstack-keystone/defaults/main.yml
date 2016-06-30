@@ -5,7 +5,7 @@
 mysql_root_password: yunzongnet
 keystone_database_pass: KEYSTONE_PASS_YUNZONGNET
 keystone_admin_token: 5b593d4553ff16d35904
-openstack_ha_domain: controllervip1.test.yunzongnet.com
+openstack_ha_domain: 10.200.21.125
 keystone_admin_endpoint: "http://{{ openstack_ha_domain }}:35357/v2.0"
 keystone_normal_endpoint: "http://{{ openstack_ha_domain }}:5000/v2.0"
 ADMIN_PROJECT_PASS: yunzongnetops

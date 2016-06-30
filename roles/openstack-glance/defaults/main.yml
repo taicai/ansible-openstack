@@ -6,7 +6,7 @@
 mysql_root_password: yunzongnet
 glance_database_pass: GLANCE_PASS_YUNZONGNET
 keystone_admin_token: 5b593d4553ff16d35904
-openstack_ha_domain: controllervip1.test.yunzongnet.com
+openstack_ha_domain: 10.200.21.125
 glance_endpoint: "http://{{ openstack_ha_domain }}:9292"
 keystone_auth_uri: http://{{ openstack_ha_domain }}:5000
 keystone_auth_url: http://{{ openstack_ha_domain }}:35357

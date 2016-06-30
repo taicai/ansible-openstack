@@ -1,63 +1,63 @@
 [openstack]
-10.100.24.187 hostname=controller.wanlin.yunzongnet.com
-10.100.24.34 hostname=controller1-wanlin-yunzongnet
-10.100.24.35 hostname=controller2-wanlin-yunzongnet
-10.100.24.36 hostname=controller3-wanlin-yunzongnet
-10.100.24.32 hostname=compute1-wanlin-yunzongnet
-10.100.24.40 hostname=compute2-wanlin-yunzongnet
+10.200.21.125 hostname=controller.wanlin.yunzongnet.com
+10.100.23.15 hostname=controller1-wanlin-yunzongnet
+10.200.21.103 hostname=controller2-wanlin-yunzongnet
+10.200.21.111 hostname=controller3-wanlin-yunzongnet
+10.100.23.17 hostname=compute1-wanlin-yunzongnet
+10.100.23.19 hostname=compute2-wanlin-yunzongnet
+10.200.21.101 hostname=compute3-wanlin-yunzongnet
+10.200.21.105 hostname=compute4-wanlin-yunzongnet
+10.200.21.107 hostname=compute5-wanlin-yunzongnet
+10.200.21.109 hostname=compute6-wanlin-yunzongnet
+10.200.21.113 hostname=compute7-wanlin-yunzongnet
 
 [openstack-rabbitmq]
-10.100.24.34
-10.100.24.35 cluster_name=controller1-wanlin-yunzongnet
-10.100.24.36 cluster_name=controller1-wanlin-yunzongnet
+10.100.23.15
+10.200.21.103 cluster_name=controller1-wanlin-yunzongnet
+10.200.21.111 cluster_name=controller1-wanlin-yunzongnet
 
 [openstack-galera-mariadb]
-10.100.24.34
-10.100.24.35
-10.100.24.36
+10.100.23.15
+10.200.21.103
+10.200.21.111
 
 [openstack-keystone]
-10.100.24.34
-10.100.24.35
-10.100.24.36
+10.100.23.15
+10.200.21.103
+10.200.21.111
 
 [openstack-glance]
-10.100.24.34
-10.100.24.35
-10.100.24.36
-
-[openstack-nova-controller]
-10.100.24.34
-10.100.24.35
-10.100.24.36
-
-[openstack-nova-compute]
-#10.100.24.32
-10.100.24.40
-[openstack-ha-keepalived]
-10.100.24.35
-10.100.24.36
+10.100.23.15
+10.200.21.103
+10.200.21.111
 
 [openstack-ha-haproxy]
-10.100.24.34
-10.100.24.35
-10.100.24.36
+10.100.23.15
+10.200.21.103
+10.200.21.111
 
 [openstack-dashboard]
-10.100.24.34
-10.100.24.35
-10.100.24.36
+10.100.23.15
+10.200.21.103
+10.200.21.111
 
 [openstack-neutron-controller]
-10.100.24.34
-10.100.24.35
-10.100.24.36
+10.100.23.15
+10.200.21.103
+10.200.21.111
 
 [openstack-ha-haproxy1]
-10.100.24.33
+#10.100.24.33
+
 [openstack-neutron-compute]
-#10.100.24.32
-10.100.24.40
+10.100.23.17
+10.100.23.19
+10.200.21.101
+10.200.21.105
+10.200.21.107
+10.200.21.109
+10.200.21.113
+
 
 [openstack-controller-recover]
-10.100.24.34
+#10.100.24.34
