@@ -35,7 +35,7 @@
 - name: install and config nova compute
   remote_user: feiyu.liu
   sudo: yes
-  hosts: openstack-nova-compute
+  hosts: openstack-computer-recover
   roles:
     - { role: openstack-nova-compute, openstack_ha_domain: 10.100.24.187 }
 
@@ -44,6 +44,6 @@
 - name: install and config neutron compute
   remote_user: feiyu.liu
   sudo: yes
-  hosts: openstack-neutron-compute
+  hosts: openstack-computer-recover
   roles:
     - { role: openstack-neutron-compute, openstack_ha_domain: 10.100.24.187 }

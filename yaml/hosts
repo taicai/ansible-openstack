@@ -60,4 +60,7 @@
 
 
 [openstack-controller-recover]
-#10.100.24.34
+#10.100.23.17
+
+[openstack-computer-recover]
+#10.200.21.113
