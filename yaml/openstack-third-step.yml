@@ -34,14 +34,14 @@
   sudo: yes
   hosts: openstack-rabbitmq[0]
   roles:
-     - { role: openstack-rabbitmq, rabbitmq_master: master, openstack_ha_domain: 10.200.21.125 }
+     - { role: openstack-rabbitmq, rabbitmq_master: master, openstack_ha_domain: 10.100.23.28 }
 
 - name: install rabbitmq slave
   remote_user: feiyu.liu
   sudo: yes
   hosts: openstack-rabbitmq:!openstack-rabbitmq[0]
   roles:
-     - { role: openstack-rabbitmq, rabbitmq_master: slave, openstack_ha_domain: 10.200.21.125 }
+     - { role: openstack-rabbitmq, rabbitmq_master: slave, openstack_ha_domain: 10.100.23.28 }
 
 - name: set quene mirroring
   remote_user: feiyu.liu
@@ -71,7 +71,7 @@
   sudo: yes
   hosts: openstack-ha-haproxy
   roles:
-    - { role: openstack-ha-haproxy, openstack_ha_vip: "10.200.21.125" }
+    - { role: openstack-ha-haproxy, openstack_ha_vip: "10.100.23.28" }
 
 # 4. 安装配置keepalived
 # 配置变量 keepalived_vip_iface: "eth0"  keepalived_vip_ip: "192.168.1.1"
@@ -81,14 +81,14 @@
   sudo: yes
   hosts: openstack-ha-keepalived[0]
   roles:
-    - { role: openstack-ha-keepalived, keepalived_vip_ip: "10.200.21.125", keepalived_role: "MASTER", keepalived_vip_iface: "enp3s0f0"  }
+    - { role: openstack-ha-keepalived, keepalived_vip_ip: "10.100.23.28", keepalived_role: "MASTER", keepalived_vip_iface: "enp3s0f0"  }
 
 - name: install and config keepalived
   remote_user: feiyu.liu
   sudo: yes
   hosts: openstack-ha-keepalived:!openstack-ha-keepalived[0]
   roles:
-    - { role: openstack-ha-keepalived, keepalived_vip_ip: "10.200.21.125", keepalived_role: "BACKUP" , keepalived_vip_iface: "enp3s0f0" }
+    - { role: openstack-ha-keepalived, keepalived_vip_ip: "10.100.23.28", keepalived_role: "BACKUP" , keepalived_vip_iface: "enp3s0f0" }
 
 # 5. 安装配置keystone
 # 配置变量 openstack_ha_domain: controllervip1.test.yunzongnet.com
@@ -98,14 +98,14 @@
   sudo: yes
   hosts: openstack-keystone[0]
   roles:
-    - { role: openstack-keystone, service_create: once, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-keystone, service_create: once, openstack_ha_domain: 10.100.23.28 }
 
 - name: install and config keystone
   remote_user: feiyu.liu
   sudo: yes
   hosts: openstack-keystone:!openstack-keystone[0]
   roles:
-    - { role: openstack-keystone, service_create: not_create, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-keystone, service_create: not_create, openstack_ha_domain: 10.100.23.28 }
 
 # 6. 安装配置glance
 # 配置变量 openstack_ha_domain: controllervip1.test.yunzongnet.com
@@ -115,14 +115,14 @@
   sudo: yes
   hosts: openstack-glance[0]
   roles:
-    - { role: openstack-glance, service_create: once, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-glance, service_create: once, openstack_ha_domain: 10.100.23.28 }
 
 - name: install and config the last glance hosts
   remote_user: feiyu.liu
   sudo: yes
   hosts: openstack-glance:!openstack-glance[0]
   roles:
-    - { role: openstack-glance, service_create: not_create, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-glance, service_create: not_create, openstack_ha_domain: 10.100.23.28 }
 
 # 7. 安装配置 nova controller
 # 配置变量 openstack_ha_domain: controllervip1.test.yunzongnet.com
@@ -132,14 +132,14 @@
   sudo: yes
   hosts: openstack-nova-controller[0]
   roles:
-    - { role: openstack-nova-controller, service_create: once, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-nova-controller, service_create: once, openstack_ha_domain: 10.100.23.28 }
 
 - name: install and config nova controller the last hosts
   remote_user: feiyu.liu
   sudo: yes
   hosts: openstack-nova-controller:!openstack-nova-controller[0]
   roles:
-    - { role: openstack-nova-controller, service_create: not_create, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-nova-controller, service_create: not_create, openstack_ha_domain: 10.100.23.28 }
 
 # 8. 安装配置 Neutron controller
 # 配置变量 openstack_ha_domain: controllervip1.test.yunzongnet.com
@@ -149,14 +149,14 @@
   sudo: yes
   hosts: openstack-neutron-controller[0]
   roles:
-    - { role: openstack-neutron-controller, service_create: once, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-neutron-controller, service_create: once, openstack_ha_domain: 10.100.23.28 }
 
 - name: install and config neutron controller the last hosts
   remote_user: feiyu.liu
   sudo: yes
   hosts: openstack-neutron-controller:!openstack-neutron-controller[0]
   roles:
-    - { role: openstack-neutron-controller, service_create: not_create, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-neutron-controller, service_create: not_create, openstack_ha_domain: 10.100.23.28 }
 
 # 9. 安装配置dashboard
 
@@ -174,7 +174,7 @@
   sudo: yes
   hosts: openstack-nova-compute
   roles:
-    - { role: openstack-nova-compute, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-nova-compute, openstack_ha_domain: 10.100.23.28 }
 
 # 11. 安装配置 neutron compute
 # 配置变量 openstack_ha_domain: controllervip1.test.yunzongnet.com
@@ -183,4 +183,4 @@
   sudo: yes
   hosts: openstack-neutron-compute
   roles:
-    - { role: openstack-neutron-compute, openstack_ha_domain: 10.200.21.125 }
+    - { role: openstack-neutron-compute, openstack_ha_domain: 10.100.23.28 }

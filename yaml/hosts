@@ -1,62 +1,71 @@
 [openstack]
-10.200.21.125 hostname=controller.wanlin.yunzongnet.com
+10.100.23.28 hostname=controller.wanlin.yunzongnet.com
 10.100.23.15 hostname=controller1-wanlin-yunzongnet
-10.200.21.103 hostname=controller2-wanlin-yunzongnet
-10.200.21.111 hostname=controller3-wanlin-yunzongnet
+10.100.23.21 hostname=controller2-wanlin-yunzongnet
+10.100.23.22 hostname=controller3-wanlin-yunzongnet
 10.100.23.17 hostname=compute1-wanlin-yunzongnet
 10.100.23.19 hostname=compute2-wanlin-yunzongnet
-10.200.21.101 hostname=compute3-wanlin-yunzongnet
-10.200.21.105 hostname=compute4-wanlin-yunzongnet
-10.200.21.107 hostname=compute5-wanlin-yunzongnet
-10.200.21.109 hostname=compute6-wanlin-yunzongnet
-10.200.21.113 hostname=compute7-wanlin-yunzongnet
+10.100.23.23 hostname=compute3-wanlin-yunzongnet
+10.100.23.24 hostname=compute4-wanlin-yunzongnet
+10.100.23.25 hostname=compute5-wanlin-yunzongnet
+10.100.23.26 hostname=compute6-wanlin-yunzongnet
+10.100.23.27 hostname=compute7-wanlin-yunzongnet
 
 [openstack-rabbitmq]
 10.100.23.15
-10.200.21.103 cluster_name=controller1-wanlin-yunzongnet
-10.200.21.111 cluster_name=controller1-wanlin-yunzongnet
+10.100.23.21 cluster_name=controller1-wanlin-yunzongnet
+10.100.23.22 cluster_name=controller1-wanlin-yunzongnet
 
 [openstack-galera-mariadb]
 10.100.23.15
-10.200.21.103
-10.200.21.111
+10.100.23.21
+10.100.23.22
 
 [openstack-keystone]
 10.100.23.15
-10.200.21.103
-10.200.21.111
+10.100.23.21
+10.100.23.22
 
 [openstack-glance]
 10.100.23.15
-10.200.21.103
-10.200.21.111
+10.100.23.21
+10.100.23.22
 
 [openstack-ha-haproxy]
 10.100.23.15
-10.200.21.103
-10.200.21.111
+10.100.23.21
+10.100.23.22
 
 [openstack-dashboard]
 10.100.23.15
-10.200.21.103
-10.200.21.111
+10.100.23.21
+10.100.23.22
 
 [openstack-neutron-controller]
 10.100.23.15
-10.200.21.103
-10.200.21.111
+10.100.23.21
+10.100.23.22
 
 [openstack-ha-haproxy1]
 #10.100.24.33
 
+[openstack-nova-compute]
+10.100.23.17
+10.100.23.19
+10.100.23.23
+10.100.23.24
+10.100.23.25
+10.100.23.26
+10.100.23.27
+
 [openstack-neutron-compute]
 10.100.23.17
 10.100.23.19
-10.200.21.101
-10.200.21.105
-10.200.21.107
-10.200.21.109
-10.200.21.113
+10.100.23.23
+10.100.23.24
+10.100.23.25
+10.100.23.26
+10.100.23.27
 
 
 [openstack-controller-recover]
