@@ -48,10 +48,8 @@
   sudo: yes
   hosts: openstack-rabbitmq[0]
   tasks:
-#      - name : enable queue mirroring
-#        shell: rabbitmqctl set_policy ha-all "\.*" '{"ha-mode":"all"}'
-      - name: mirror all queue
-        shell: rabbitmqctl set_policy HA '^(?!amq\.).*' '{"ha-mode": "all"}'
+    - name : enable queue mirroring
+      shell: rabbitmqctl set_policy ha-all "\.*" '{"ha-mode":"all"}'
 
 - name: add openstack user and add read write permissions
   remote_user: feiyu.liu
