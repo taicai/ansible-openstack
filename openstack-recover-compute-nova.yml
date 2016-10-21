@@ -1,0 +1,6 @@
+- name: install and config nova compute
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-nova-compute-recover
+  roles:
+    - { role: openstack-recover-compute-nova }

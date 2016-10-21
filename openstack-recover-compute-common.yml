@@ -1,0 +1,10 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+- name: install openstack common
+  hosts: openstack-nova-compute-recover 
+  remote_user: feiyu.liu
+  sudo: yes
+  roles:
+    - role: openstack-recover-os-common

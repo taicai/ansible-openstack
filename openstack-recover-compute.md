@@ -7,7 +7,7 @@
 4. Neutron 安装配置
 
 ## 操作系统初始化
-inventory 配置实例
+inventory 配置实例 hosts文件
 
 	[openstack]
 	10.100.24.31 hostname=controller1-wanlin-	yunzongnet
@@ -16,11 +16,18 @@ inventory 配置实例
 	10.100.24.34 hostname=compute1-wanlin-yunzongnet
 	10.100.24.35 hostname=compute2-wanlin-yunzongnet
 	[openstack-nova-compute]
+	10.100.24.34
+	10.100.24.35
+	[openstack-nova-compute-recover]
 	10.100.24.34 #这里写要恢复的compute机器的ip
+
+初始化
 	
+	ansible-playbook -i hosts openstack-recover-compute-common.yml
+
 ## 网络初始化
 
-在做配置服务器网路之前需要做参数配置，修改 roles 下的`openstack-recover-os-network/defaults/main.yml`文件
+在做配置服务器网路之前需要修改参数配置`openstack-recover-compute-network.yml`
 
 ```
 manager_interface: enp2s0   #管理网络网卡名
@@ -30,21 +37,27 @@ manager_gateway: 10.100.24.254  #管理网络网关
 wan_gateway: 10.200.24.254 #外网网络网关
 wan_ip: 10.200.24.32 #外网网卡ip
 ```
+初始化
+	
+	ansible-playbook -i hosts openstack-recover-compute-network.yml
+
 
 ## openstack 组件 nova 安装
 
+执行安装 nova 组件
+
+	ansible-playbook -i hosts openstack-recover-compute-nova.yml
+	
 执行完 role 后，需要 copy 备份的配置文件`nova.conf`覆盖`/etc/nova/`默认的配置，然后再重启 nova 服务.
 `systemctl restart libvirtd.service openstack-nova-compute.service`
 
 ## openstack 组件 neutron 安装
 
+执行安装 neutron 组件
+	
+	ansible-playbook -i hosts openstack-recover-compute-neutron.yml
+	
 执行完 role 后需要 copy 备份配置文件 `l3_agent.ini, metadata_agent.ini, neutron.conf`覆盖`/etc/neutron/`目录下面的默认配置，copy 备份配置文件`ml2_conf.ini, openvswitch_agent.ini` 覆盖`/etc/neutron/plugins/ml2`目录下面的默认配置，然后再重启。
 `systemctl start openvswitch neutron-metadata-agent.service neutron-l3-agent.service neutron-openvswitch-agent`
-
-
-
-
-
-
 
 
