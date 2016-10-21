@@ -9,5 +9,5 @@
 - name: enable and restart libvirtd service
   service: name=libvirtd state=restarted enabled=yes
 
-- name: enable and restart openstack-nova-compute
-  service: name=openstack-nova-compute state=restarted enabled=yes
+- name: enable and stop openstack-nova-compute
+  service: name=openstack-nova-compute state=stopped enabled=yes
