@@ -18,7 +18,7 @@ inventory 配置实例
 	[openstack-nova-compute]
 	10.100.24.34 #这里写要恢复的compute机器的ip
 	
-##网络初始化
+## 网络初始化
 
 在做配置服务器网路之前需要做参数配置，修改 roles 下的`openstack-recover-os-network/defaults/main.yml`文件
 
@@ -31,12 +31,12 @@ wan_gateway: 10.200.24.254 #外网网络网关
 wan_ip: 10.200.24.32 #外网网卡ip
 ```
 
-##openstack 组件 nova 安装
+## openstack 组件 nova 安装
 
 执行完 role 后，需要 copy 备份的配置文件`nova.conf`覆盖`/etc/nova/`默认的配置，然后再重启 nova 服务.
 `systemctl restart libvirtd.service openstack-nova-compute.service`
 
-##openstack 组件 neutron 安装
+## openstack 组件 neutron 安装
 
 执行完 role 后需要 copy 备份配置文件 `l3_agent.ini, metadata_agent.ini, neutron.conf`覆盖`/etc/neutron/`目录下面的默认配置，copy 备份配置文件`ml2_conf.ini, openvswitch_agent.ini` 覆盖`/etc/neutron/plugins/ml2`目录下面的默认配置，然后再重启。
 `systemctl start openvswitch neutron-metadata-agent.service neutron-l3-agent.service neutron-openvswitch-agent`
