@@ -2,8 +2,8 @@
 #
 # Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
 #
-# 步骤1：修改hosts文件，在openstack组加上新的compute(如果是新增compute)，在openstack-nova-compute openstack-neutron-compute 添加要恢复或者新增的compute并注释掉之前的compute。
-# 步骤2：修改openstack-compute-recover.yml 文件，修改对应的hosts和一些参数。
+# 步骤1：修改hosts文件，在openstack组加上新的compute(如果是新增compute)，在 openstack-neutron-compute 添加要恢复或者新增的compute并注释掉之前的compute。
+# 步骤2：修改 openstack-recover-compute.yml 文件，修改对应的hosts和一些参数。
 # 步骤3：系统初始化完成后注释掉在执行；网络初始化后注释掉再执行，最后安装nova-compute和Neutron服务。
 
 # 1.系统初始化
@@ -12,7 +12,7 @@
   remote_user: feiyu.liu
   sudo: yes
   roles:
-    - role: openstack-os-common
+    - role: openstack-recover-os-common
 
 # 2. 网络初始化
 - name: remove the base yum repository
@@ -28,7 +28,7 @@
   remote_user: feiyu.liu
   sudo: yes
   roles:
-    - { role: openstack-os-network,  run_type: "once", manager_interface: enp3s0, data_interface: enp4s0, wan_interface: enp2s0,  manager_gateway: 10.100.24.254, wan_gateway: 10.200.24.254, wan_ip: 10.200.24.40  }
+    - { role: openstack-recover-os-network,  run_type: "once", manager_interface: enp3s0, data_interface: enp4s0, wan_interface: enp2s0,  manager_gateway: 10.100.24.254, wan_gateway: 10.200.24.254, wan_ip: 10.200.24.40  }
 
 # 3. 安装配置 nova compute
 # 配置变量 openstack_ha_domain: controllervip1.test.yunzongnet.com
@@ -37,7 +37,7 @@
   sudo: yes
   hosts: openstack-computer-recover
   roles:
-    - { role: openstack-nova-compute, openstack_ha_domain: 10.100.24.187 }
+    - { role: openstack-recover-compute-nova, openstack_ha_domain: 10.100.24.187 }
 
 # 4. 安装配置 neutron compute
 # 配置变量 openstack_ha_domain: controllervip1.test.yunzongnet.com
@@ -46,4 +46,4 @@
   sudo: yes
   hosts: openstack-computer-recover
   roles:
-    - { role: openstack-neutron-compute, openstack_ha_domain: 10.100.24.187 }
+    - { role: openstack-recover-compute-neutron, openstack_ha_domain: 10.100.24.187 }
