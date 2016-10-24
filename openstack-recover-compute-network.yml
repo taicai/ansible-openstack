@@ -11,4 +11,4 @@
   remote_user: feiyu.liu
   sudo: yes
   roles:
-    - { role: openstack-os-network,  run_type: "once", manager_interface: enp3s0, data_interface: enp4s0, wan_interface: enp2s0,  manager_gateway: 10.100.24.254, wan_gateway: 10.200.24.254, wan_ip: 10.200.24.32  }
+    - { role: openstack-recover-os-network,  run_type: "once", manager_interface: enp3s0, data_interface: enp4s0, wan_interface: enp2s0,  manager_gateway: 10.100.24.254, wan_gateway: 10.200.24.254, wan_ip: 10.200.24.32  }
