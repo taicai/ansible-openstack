@@ -10,16 +10,16 @@
 inventory 配置实例 hosts文件
 
 	[openstack]
-	10.100.24.31 hostname=controller1-wanlin-	yunzongnet
-	10.100.24.32 hostname=controller2-wanlin-yunzongnet
-	10.100.24.33 hostname=controller3-wanlin-yunzongnet
-	10.100.24.34 hostname=compute1-wanlin-yunzongnet
-	10.100.24.35 hostname=compute2-wanlin-yunzongnet
-	[openstack-nova-compute]
-	10.100.24.34
-	10.100.24.35
-	[openstack-nova-compute-recover]
-	10.100.24.34 #这里写要恢复的compute机器的ip
+    10.100.24.34 hostname=controller1-wanlin-yunzongnet
+    10.100.24.35 hostname=controller2-wanlin-yunzongnet
+    10.100.24.36 hostname=controller3-wanlin-yunzongnet
+    10.100.24.32 hostname=compute1-wanlin-yunzongnet
+    10.100.24.40 hostname=compute2-wanlin-yunzongnet
+    [openstack-nova-compute]
+    10.100.24.32
+    10.100.24.40
+    [openstack-nova-compute-recover]
+    10.100.24.32 #这里写要恢复的compute机器的ip
 
 初始化
 	
@@ -59,5 +59,3 @@ wan_ip: 10.200.24.32 #外网网卡ip
 	
 执行完 role 后需要 copy 备份配置文件 `l3_agent.ini, metadata_agent.ini, neutron.conf`覆盖`/etc/neutron/`目录下面的默认配置，copy 备份配置文件`ml2_conf.ini, openvswitch_agent.ini` 覆盖`/etc/neutron/plugins/ml2`目录下面的默认配置，然后再重启。
 `systemctl start openvswitch neutron-metadata-agent.service neutron-l3-agent.service neutron-openvswitch-agent`
-
-
