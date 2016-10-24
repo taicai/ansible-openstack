@@ -10,6 +10,7 @@
 inventory 配置实例 hosts文件
 
 	[openstack]
+	10.100.24.187 hostname=controller.wanlin.yunzongnet.com
     10.100.24.34 hostname=controller1-wanlin-yunzongnet
     10.100.24.35 hostname=controller2-wanlin-yunzongnet
     10.100.24.36 hostname=controller3-wanlin-yunzongnet
