@@ -14,7 +14,6 @@
 
 - name: backup yum config path
   shell: mv /etc/yum.repos.d /etc/yum.repos.d.backup
-  when: yum_config_stat.stat.exists == true
 
 - name: mkdir new yum config path
   file: path=/etc/yum.repos.d state=directory owner=root group=root mode=0755
