@@ -5,3 +5,5 @@
 - include: packages.yml
   tag: package
 
+- name: creates glance store directory
+  file: path=/data/glance/images state=directory owner=glance group=glance mode=0775 recurse=yes

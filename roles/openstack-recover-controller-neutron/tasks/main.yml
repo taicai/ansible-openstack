@@ -5,3 +5,16 @@
 
 - include: packages.yml
   tag: package
+
+- name: set soft link plugin.ini
+  file: src=/etc/neutron/plugins/ml2/ml2_conf.ini dest=/etc/neutron/plugin.ini state=link
+
+- name: set sysctl ip_forward
+  sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes
+
+- name: set sysctl all rp_filter
+  sysctl: name="net.ipv4.conf.all.rp_filter" value=0 sysctl_set=yes state=present reload=yes
+
+- name: set sysctl default rp_filter
+  sysctl: name="net.ipv4.conf.default.rp_filter" value=0 sysctl_set=yes state=present reload=yes
+
