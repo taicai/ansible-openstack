@@ -1,0 +1,6 @@
+- name: install and config the last glance hosts
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-nova-controller-recover
+  roles:
+    - { role: openstack-recover-controller-glance }

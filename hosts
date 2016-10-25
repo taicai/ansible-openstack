@@ -1,0 +1,14 @@
+[openstack]
+10.100.24.187 hostname=controller.wanlin.yunzongnet.com
+10.100.24.34 hostname=controller1-wanlin-yunzongnet
+10.100.24.35 hostname=controller2-wanlin-yunzongnet
+10.100.24.36 hostname=controller3-wanlin-yunzongnet
+10.100.24.32 hostname=compute1-wanlin-yunzongnet
+10.100.24.40 hostname=compute2-wanlin-yunzongnet
+[openstack-nova-compute]
+10.100.24.32
+10.100.24.40
+[openstack-nova-compute-recover]
+10.100.24.32
+[openstack-nova-controller-recover]
+10.100.24.34
