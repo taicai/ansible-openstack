@@ -1,5 +1,6 @@
 # openstack-recover-compute 注意事项
-**之前系统的配置文件需要备份**
+`之前系统的配置文件需要备份`
+
 安装之前需要修改一些初始化配置和组件安装配置
 0. ansible无密码登陆
 1. 操作系统初始化
@@ -56,8 +57,16 @@ wan_ip: 10.200.24.32 #外网网卡ip
 
 	ansible-playbook -i hosts openstack-recover-compute-nova.yml
 	
-执行完 role 后，需要 copy 备份的配置文件`nova.conf`覆盖`/etc/nova/`默认的配置，然后再重启 nova 服务.
-`systemctl restart libvirtd.service openstack-nova-compute.service`
+拷贝`备份配置`到指定目录
+
+	/usr/bin/cp nova.conf /etc/nova/nova.conf
+	/usr/bin/cp libvirtd.conf /etc/libvirt/libvirtd.conf
+	/usr/bin/cp libvirtd /etc/sysconfig/libvirtd
+
+启动 nova
+
+	systemctl enable libvirtd.service openstack-nova-compute.service
+	systemctl restart libvirtd.service openstack-nova-compute.service
 
 ## openstack 组件 neutron 安装
 
@@ -65,6 +74,19 @@ wan_ip: 10.200.24.32 #外网网卡ip
 	
 	ansible-playbook -i hosts openstack-recover-compute-neutron.yml
 	
-执行完 role 后需要 copy 备份配置文件 `l3_agent.ini, metadata_agent.ini, neutron.conf`覆盖`/etc/neutron/`目录下面的默认配置，copy 备份配置文件`ml2_conf.ini, openvswitch_agent.ini` 覆盖`/etc/neutron/plugins/ml2`目录下面的默认配置，然后再重启。
-`systemctl start openvswitch neutron-metadata-agent.service neutron-l3-agent.service neutron-openvswitch-agent`
+拷贝`备份配置`到指定目录
+
+	/usr/bin/cp l3_agent.ini /etc/neutron/l3_agent.ini
+	/usr/bin/cp metadata_agent.ini /etc/neutron/metadata_agent.ini
+	/usr/bin/cp neutron.conf /etc/neutron/neutron.conf
+	/usr/bin/cp ml2_conf.ini /etc/neutron/plugins/ml2/ml2_conf.ini
+	/usr/bin/cp openvswitch_agent.ini /etc/neutron/plugins/ml2/openvswitch_agent.ini
+	
+启动 Neutron 服务
+	
+	systemctl enable openvswitch neutron-metadata-agent.service neutron-l3-agent.service neutron-openvswitch-agent
+	systemctl start openvswitch neutron-metadata-agent.service neutron-l3-agent.service neutron-openvswitch-agent
+
+
+
 
