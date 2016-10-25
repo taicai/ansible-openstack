@@ -1,5 +1,5 @@
 # openstack-recover-controller 注意事项
-**之前系统的配置文件需要备份**
+`系统的配置文件需要之前备份`
 安装之前需要修改一些初始化配置和组件安装配置
 0. ansible 无密码登陆
 1. 操作系统初始化
@@ -60,10 +60,10 @@ wan_ip: 10.200.24.32 #外网网卡ip
 执行安装 mariadb
 
 	ansible-playbook -i hosts openstack-recover-controller-mariadb.yml
-拷贝**备份配置**到指定目录
+拷贝`备份配置`到指定目录
 
-	cp my.cnf /etc/my.cnf
-	cp galera.cnf /etc/my.cnf.d/galera.cnf
+	/usr/bin/cp my.cnf /etc/my.cnf
+	/usr/bin/cp galera.cnf /etc/my.cnf.d/galera.cnf
 启动 mariadb 数据库
 
 	systemctl enable mariadb.service 
@@ -73,9 +73,9 @@ wan_ip: 10.200.24.32 #外网网卡ip
 执行安装 RabbitMQ
 	
 	ansible-playbook -i hosts openstack-recover-controller-rabbitmq.yml
-拷贝**备份配置**到指定目录
+拷贝`备份配置`到指定目录
 
-	cp rabbitmq.config /etc/rabbitmq/rabbitmq.config
+	/usr/bin/cp rabbitmq.config /etc/rabbitmq/rabbitmq.config
 启动 RabbitMQ
 
 	systemctl enable rabbitmq-server.service
@@ -85,10 +85,10 @@ wan_ip: 10.200.24.32 #外网网卡ip
 执行安装 keystone 组件
 
 	ansible-playbook -i hosts openstack-recover-controller-keystone.yml
-拷贝**备份配置**到指定目录
+拷贝`备份配置`到指定目录
 
-	cp openstack-keystone.conf /etc/httpd/conf.d/openstack-keystone.conf
-	cp httpd.conf /etc/httpd/conf/httpd.conf
+	/usr/bin/cp openstack-keystone.conf /etc/httpd/conf.d/openstack-keystone.conf
+	/usr/bin/cp httpd.conf /etc/httpd/conf/httpd.conf
 启动 keystone 服务
 
 	systemctl enable memcached.service
@@ -100,10 +100,10 @@ wan_ip: 10.200.24.32 #外网网卡ip
 执行安装 glance 组件
 
 	ansible-playbook -i hosts openstack-recover-controller-glance.yml
-拷贝**备份配置**到指定目录
+拷贝`备份配置`到指定目录
 
-	cp glance-api.conf /etc/glance/glance-api.conf
-	cp glance-registry.conf /etc/glance/glance-registry.conf
+	/usr/bin/cp glance-api.conf /etc/glance/glance-api.conf
+	/usr/bin/cp glance-registry.conf /etc/glance/glance-registry.conf
 启动 glance 服务
 
 	systemctl enable openstack-glance-api.service openstack-glance-registry.service
@@ -115,9 +115,9 @@ wan_ip: 10.200.24.32 #外网网卡ip
 
 	ansible-playbook -i hosts openstack-recover-controller-nova.yml
 	
-拷贝**备份配置**到指定目录
+拷贝`备份配置`到指定目录
 
-	cp nova.conf /etc/nova/nova.conf
+	/usr/bin/cp nova.conf /etc/nova/nova.conf
 	
 启动 nova 服务
 
@@ -129,14 +129,14 @@ wan_ip: 10.200.24.32 #外网网卡ip
 执行安装 neutron 组件
 
 	ansible-playbook -i hosts openstack-recover-controller-neutron.yml
-拷贝**备份配置**到指定目录 
+拷贝`备份配置`到指定目录 
 
-	cp neutron.conf /etc/neutron/neutron.conf
-	cp openvswitch_agent.ini /etc/neutron/plugins/ml2/openvswitch_agent.ini
-	cp ml2_conf.ini /etc/neutron/plugins/ml2/ml2_conf.ini
-	cp l3_agent.ini /etc/neutron/l3_agent.ini
-	cp dhcp_agent.ini /etc/neutron/dhcp_agent.ini
-	cp metadata_agent.ini /etc/neutron/metadata_agent.ini
+	/usr/bin/cp neutron.conf /etc/neutron/neutron.conf
+	/usr/bin/cp openvswitch_agent.ini /etc/neutron/plugins/ml2/openvswitch_agent.ini
+	/usr/bin/cp ml2_conf.ini /etc/neutron/plugins/ml2/ml2_conf.ini
+	/usr/bin/cp l3_agent.ini /etc/neutron/l3_agent.ini
+	/usr/bin/cp dhcp_agent.ini /etc/neutron/dhcp_agent.ini
+	/usr/bin/cp metadata_agent.ini /etc/neutron/metadata_agent.ini
 启动 Neutron 服务
 
 	systemctl enable openvswitch neutron-server.service  neutron-dhcp-agent.service neutron-metadata-agent.service neutron-l3-agent.service neutron-openvswitch-agent
@@ -147,9 +147,9 @@ wan_ip: 10.200.24.32 #外网网卡ip
 
 	ansible-playbook -i hosts openstack-recover-controller-dashboard.yml
 
-拷贝**备份配置**到指定目录 
+拷贝`备份配置`到指定目录 
 
-	cp local_settings /etc/openstack-dashboard/local_settings
+	/usr/bin/cp local_settings /etc/openstack-dashboard/local_settings
 	
 启动 dashboard 服务
 
