@@ -1,6 +1,0 @@
----
-#
-# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
-#
-- name: restart rabbitmq
-  service: name=rabbitmq-server state=restarted

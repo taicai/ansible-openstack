@@ -1,0 +1,14 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- name: install mariadb
+  yum: name={{ item }} state=present
+  with_items:
+    - mariadb
+    - mariadb-galera-server
+    - mariadb-galera-common
+    - galera
+    - MySQL-python
+    - rsync

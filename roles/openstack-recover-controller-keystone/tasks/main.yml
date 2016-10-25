@@ -1,0 +1,18 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+
+- include: packages.yml
+  tag: package
+
+- include: db.yml
+  tag: db
+  when: service_create == "once"
+
+- include: configure.yml
+  tag: configure
+
+- include: service.yml
+  tag: service
+  when: service_create == "once"

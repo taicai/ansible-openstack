@@ -1,0 +1,8 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+- name: Install openstack dashboard service
+  yum: name={{ item }} state=present
+  with_items:
+    - openstack-dashboard
