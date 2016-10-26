@@ -94,7 +94,7 @@ wan_ip: 10.200.24.32 #外网网卡ip
 	systemctl enable memcached.service
 	systemctl start memcached.service
 	systemctl enable httpd.service
-	systemctl start httpd.service
+**暂时不能开启 httpd 服务，否则前端会有 dashboard 请求过来**
 
 ## openstack 组件 glance 安装
 执行安装 glance 组件
