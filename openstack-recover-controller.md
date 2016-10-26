@@ -89,6 +89,7 @@ wan_ip: 10.200.24.32 #外网网卡ip
 
 	/usr/bin/cp openstack-keystone.conf /etc/httpd/conf.d/openstack-keystone.conf
 	/usr/bin/cp httpd.conf /etc/httpd/conf/httpd.conf
+	/usr/bin/cp keystone.conf /etc/keystone/keystone.conf
 启动 keystone 服务
 
 	systemctl enable memcached.service
