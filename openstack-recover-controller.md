@@ -76,10 +76,18 @@ wan_ip: 10.200.24.32 #外网网卡ip
 拷贝`备份配置`到指定目录
 
 	/usr/bin/cp rabbitmq.config /etc/rabbitmq/rabbitmq.config
+
 启动 RabbitMQ
 
+        #在另外一台controller好的机器上执行
+        rabbitmqctl forget_cluster_node XXX
+	#在本机执行
 	systemctl enable rabbitmq-server.service
 	systemctl start rabbitmq-server.service
+	rabbitmqctl stop_app
+	rabbitmqctl join_cluster XXX
+	rabbitmqctl start_app
+	
 
 ## openstack 组件 keystone 安装
 执行安装 keystone 组件
