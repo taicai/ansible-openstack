@@ -50,6 +50,7 @@
   tasks:
     - name : enable queue mirroring
       shell: rabbitmqctl set_policy ha-all "\.*" '{"ha-mode":"all"}'
+      run_once: true
 
 - name: add openstack user and add read write permissions
   remote_user: feiyu.liu
