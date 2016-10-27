@@ -34,14 +34,14 @@
   sudo: yes
   hosts: openstack-rabbitmq[0]
   roles:
-     - { role: openstack-rabbitmq, rabbitmq_master: master, openstack_ha_domain: 10.100.23.28 }
+     - { role: openstack-rabbitmq, rabbitmq_master: master }
 
 - name: install rabbitmq slave
   remote_user: feiyu.liu
   sudo: yes
   hosts: openstack-rabbitmq:!openstack-rabbitmq[0]
   roles:
-     - { role: openstack-rabbitmq, rabbitmq_master: slave, openstack_ha_domain: 10.100.23.28 }
+     - { role: openstack-rabbitmq, rabbitmq_master: slave }
 
 - name: set quene mirroring
   remote_user: feiyu.liu
@@ -58,8 +58,10 @@
   tasks:
     - name: add openstack user
       shell: rabbitmqctl add_user openstack RABBIT_PASS
+      run_once: true
     - name: add read write permissions for openstack user
       shell: rabbitmqctl set_permissions openstack ".*" ".*" ".*"
+      run_once: true
 
 # 3. 安装配置haproxy
 # 配置变量 openstack_ha_vip: 10.100.24.180
