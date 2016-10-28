@@ -1,0 +1,21 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+# 安装配置keepalived
+# 配置变量 keepalived_vip_iface: "eth0"  keepalived_vip_ip: "192.168.1.1"
+
+- name: install and config keepalived
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-ha-keepalived[0]
+  roles:
+    - { role: openstack-ha-keepalived, keepalived_vip_ip: "10.100.24.187", keepalived_role: "MASTER", keepalived_vip_iface: "enp2s0"  }
+
+- name: install and config keepalived
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-ha-keepalived:!openstack-ha-keepalived[0]
+  roles:
+    - { role: openstack-ha-keepalived, keepalived_vip_ip: "10.100.24.187", keepalived_role: "BACKUP" , keepalived_vip_iface: "enp2s0" }
+
