@@ -48,7 +48,7 @@ driver = sql
 [tokenless_auth]
 [trust]
 [memcached]
-servers = {% for keystone_host in groups['openstack-keystone'] -%}
+servers = {% for keystone_host in groups['openstack-controller'] -%}
 {{ keystone_host }}:11211
 {%- if not loop.last -%},{%- endif -%}
 {%- endfor -%}
