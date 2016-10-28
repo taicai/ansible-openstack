@@ -39,7 +39,7 @@ wsrep_node_name={{ ansible_fqdn }}
 {% if galera_master == "master" %}
 wsrep_cluster_address=gcomm://
 {% else %}
-wsrep_cluster_address=gcomm://{% for cluster in groups['openstack-galera-mariadb'] -%}
+wsrep_cluster_address=gcomm://{% for cluster in groups['openstack-controller'] -%}
 {{ cluster }}
 {%- if not loop.last -%},{%- endif -%}
 {%- endfor -%}

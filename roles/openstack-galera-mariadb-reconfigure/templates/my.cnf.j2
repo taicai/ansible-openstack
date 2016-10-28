@@ -34,7 +34,7 @@ wsrep_provider_options="gcache.size=2G"
 wsrep_cluster_name={{ galera_cluster_name }}
 wsrep_sst_method=rsync
 wsrep_node_name={{ ansible_fqdn }}
-wsrep_cluster_address=gcomm://{% for cluster in groups['openstack-galera-mariadb'] -%}
+wsrep_cluster_address=gcomm://{% for cluster in groups['openstack-controller'] -%}
 {{ cluster }}
 {%- if not loop.last -%},{%- endif -%}
 {% endfor %}

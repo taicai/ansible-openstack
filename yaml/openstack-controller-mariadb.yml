@@ -1,0 +1,27 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+# 安装配置openstack集群
+# 1. 安装配置数据库集群，默认配置主机组的第一台机器为master
+# 配置变量： mysql_root_password: yunzongnet
+- name: install mariadb cluster
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-controller[0]
+  roles:
+    - { role: openstack-galera-mariadb, galera_master: master, bind_address: "{{ inventory_hostname }}" }
+
+- name: install mariadb cluster
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-controller:!openstack-controller[0]
+  roles:
+    - { role: openstack-galera-mariadb, galera_master: slave, bind_address: "{{ inventory_hostname }}" }
+
+- name: reconfigure mariadb master
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-controller[0]
+  roles:
+    - { role: openstack-galera-mariadb-reconfigure, galera_master: master, bind_address: "{{ inventory_hostname }}" }
