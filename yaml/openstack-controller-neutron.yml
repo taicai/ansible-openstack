@@ -1,0 +1,21 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+#
+# 安装配置 Neutron controller
+# 配置变量 openstack_ha_domain: controllervip1.test.yunzongnet.com
+
+- name: install and config neutron controller the first host
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-controller[0]
+  roles:
+    - { role: openstack-neutron-controller, service_create: once, openstack_ha_domain: 10.100.24.187 }
+
+- name: install and config neutron controller the last hosts
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-controller:!openstack-controller[0]
+  roles:
+    - { role: openstack-neutron-controller, service_create: not_create, openstack_ha_domain: 10.100.24.187 }
