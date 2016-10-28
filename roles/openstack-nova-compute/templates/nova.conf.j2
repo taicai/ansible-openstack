@@ -13,7 +13,7 @@ firewall_driver = nova.virt.firewall.NoopFirewallDriver
 compute_driver = libvirt.LibvirtDriver
 default_availability_zone = wanlinzone
 verbose = True
-memcached_servers = {% for keystone_host in groups['openstack-keystone'] -%}
+memcached_servers = {% for keystone_host in groups['openstack-controller'] -%}
 {{ keystone_host }}:11211
 {%- if not loop.last -%},{%- endif -%}
 {% endfor %}
