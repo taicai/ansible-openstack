@@ -1,0 +1,40 @@
+---
+#
+# Copyright (c) 2016 Feythin Lau <feythin.lau@gmail.com>
+#
+# 安装配置RabbitMQ集群，默认配置主机组的第一台机器为master
+# 配置变量 openstack_ha_domain: 10.100.24.187 
+
+- name: install rabbitmq master
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-rabbitmq[0]
+  roles:
+     - { role: openstack-rabbitmq, rabbitmq_master: master }
+
+- name: install rabbitmq slave
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-rabbitmq:!openstack-rabbitmq[0]
+  roles:
+     - { role: openstack-rabbitmq, rabbitmq_master: slave }
+
+- name: set quene mirroring
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-rabbitmq[0]
+  tasks:
+    - name : enable queue mirroring
+      shell: rabbitmqctl set_policy ha-all "\.*" '{"ha-mode":"all"}'
+      run_once: true
+
+- name: add openstack user and add read write permissions
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-rabbitmq[0]
+  tasks:
+    - name: add openstack user
+      shell: rabbitmqctl add_user openstack RABBIT_PASS
+      run_once: true
+    - name: add read write permissions for openstack user
+      shell: rabbitmqctl set_permissions openstack ".*" ".*" ".*"
