@@ -15,7 +15,7 @@ enabled_apis = osapi_compute,metadata
 default_availability_zone = wanlinzone
 verbose = True
 novncproxy_host = {{ inventory_hostname }}
-memcached_servers = {% for keystone_host in groups['openstack-keystone'] -%}
+memcached_servers = {% for keystone_host in groups['openstack-controller'] -%}
 {{ keystone_host }}:11211
 {%- if not loop.last -%},{%- endif -%}
 {% endfor %}
