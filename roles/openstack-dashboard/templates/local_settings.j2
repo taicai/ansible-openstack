@@ -24,7 +24,7 @@ SECRET_KEY='2d23a5b0d61fb9b800c7'
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': [{% for keystone_host in groups['openstack-keystone'] -%}
+        'LOCATION': [{% for keystone_host in groups['openstack-controller'] -%}
         '{{ keystone_host }}:11211'
         {%- if not loop.last -%},{%- endif -%}
         {%- endfor -%}],
