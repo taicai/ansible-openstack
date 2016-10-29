@@ -21,7 +21,7 @@
    %%
    %% {tcp_listeners, [{"127.0.0.1", 5672},
    %%                  {"::1",       5672}]},
-   {tcp_listeners, [{"{{ inventory_hostname }}", 5672}]}
+   {tcp_listeners, [{"{{ inventory_hostname }}", 5672}]},
    %% SSL listeners are configured in the same fashion as TCP listeners,
    %% including the option to control the choice of interface.
    %%
@@ -255,7 +255,7 @@
    %% How to respond to cluster partitions.
    %% See http://www.rabbitmq.com/partitions.html for further details.
    %%
-   {cluster_partition_handling, ignore},
+   {cluster_partition_handling, ignore}
 
    %% Make clustering happen *automatically* at startup - only applied
    %% to nodes that have just been reset or started for the first time.

@@ -7,9 +7,9 @@
 10.100.24.40 hostname=compute2-wanlin-yunzongnet
 
 [openstack-rabbitmq]
-10.100.23.15
-10.100.23.21 cluster_name=controller1-wanlin-yunzongnet
-10.100.23.22 cluster_name=controller1-wanlin-yunzongnet
+10.100.24.34
+10.100.24.35 cluster_name=controller1-wanlin-yunzongnet
+10.100.24.36 cluster_name=controller1-wanlin-yunzongnet
 
 [openstack-controller]
 10.100.24.34

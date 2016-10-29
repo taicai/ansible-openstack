@@ -52,7 +52,6 @@
   service: name={{ item }} state=restarted enabled=yes
   with_items:
     - openvswitch
-    - neutron-server
     - neutron-metadata-agent
     - neutron-l3-agent
     - neutron-openvswitch-agent
