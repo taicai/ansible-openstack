@@ -5,13 +5,13 @@
 #  安装配置 nova controller
 # 配置变量 openstack_ha_domain: controllervip1.test.yunzongnet.com
 
-#- name: install and config nova controller the first host
-#  remote_user: feiyu.liu
-#  sudo: yes
-#  hosts: openstack-controller[0]
-#  roles:
-#    - { role: openstack-nova-controller, service_create: once, openstack_ha_domain: 10.100.24.187 }
-#
+- name: install and config nova controller the first host
+  remote_user: feiyu.liu
+  sudo: yes
+  hosts: openstack-controller[0]
+  roles:
+    - { role: openstack-nova-controller, service_create: once, openstack_ha_domain: 10.100.24.187 }
+
 - name: install and config nova controller the last hosts
   remote_user: feiyu.liu
   sudo: yes
