@@ -138,6 +138,7 @@ keepalived 是安装在两台 controller 机器上做主备切换。hosts 组为
 	ansible-playbook -i yaml/hosts yaml/openstack-compute-neutron.yml
 	
 11.dashboard 安装配置
+------
 安装 dashboard
 
 	ansible-playbook -i yaml/hosts yaml/openstack-controller-dashboard.yml
