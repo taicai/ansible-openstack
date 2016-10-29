@@ -1,8 +1,9 @@
 #openstack集群自动化部署
+
 说明
 -------
-1.自动化部署脚本是按照每个集群组件一个role的方式部署。
-2.recover分支是针对集群服务器挂掉做恢复的。
+1. 自动化部署脚本是按照每个集群组件一个role的方式部署。
+2. recover分支是针对集群服务器挂掉做恢复的。
 
 集群自动化部署
 -------
@@ -56,7 +57,7 @@ inventory 配置实例 hosts 文件
 	10.100.24.32
 	10.100.24.40
 初始化系统
-   
+
 	ansible-playbook -i yaml/hosts yaml/openstack-first-step.yml
 
 2.网络初始化
@@ -73,21 +74,21 @@ wan_gateway: 10.200.24.254 #外网网络网关
 wan_ip: 10.200.24.32 #外网网卡ip
 ```
 初始化
-    
+
     ansible-playbook -i yaml/hosts yaml/openstack-second-step.yml
 
 3.mariadb 安装配置
 ------
-mariadb 是安装在controller节点上。使用的 hosts 组为`openstack-controller`, 需要模板的`galera.cnf.j2`和`my.cnf.j2`配置里的 group 为`openstack-controller`。 
+mariadb 是安装在controller节点上。使用的 hosts 组为`openstack-controller`, 需要模板的`galera.cnf.j2`和`my.cnf.j2`配置里的 group 为`openstack-controller`。
 安装：
-        
+
 	ansible-playbook -i yaml/hosts yaml/openstack-controller-mariadb.yml
 
 4.rabbitmq 安装配置
 ------
 集群安装时先安装 master 节点，然后安装 slave 节点，再 join 到 master 节点。最后把 master 节点的配置文件修改一下。
 安装命令：
-        
+
 	ansible-playbook -i yaml/hosts yaml/openstack-controller-rabbitmq.yml
 
 5.haproxy 安装配置
@@ -108,13 +109,13 @@ keepalived 是安装在两台 controller 机器上做主备切换。hosts 组为
 需要设置 `openstack_ha_domain` 也就是虚拟 ip 的域名，这里我们都用 ip 没有用域名。
 
 	ansible-playbook -i yaml/hosts yaml/openstack-controller-keystone.yml
-	
+
 8.glance 安装配置
 ------
 需要设置 `openstack_ha_domain` 也就是虚拟 ip 的域名，这里我们都用 ip 没有用域名。
 
 	ansible-playbook -i yaml/hosts yaml/openstack-controller-glance.yml
-	
+
 9.nova 控制节点安装配置
 ------
 需要设置 `openstack_ha_domain` 也就是虚拟 ip 的域名，这里我们都用 ip 没有用域名。
@@ -122,21 +123,21 @@ keepalived 是安装在两台 controller 机器上做主备切换。hosts 组为
 控制节点的安装
 
 	ansible-playbook -i yaml/hosts yaml/openstack-controller-nova.yml
-	
+
 计算节点的安装
 
 	ansible-playbook -i yaml/hosts yaml/openstack-compute-nova.yml
-	
+
 10.Neutron 安装配置
 ------
 控制节点的安装
 
 	ansible-playbook -i yaml/hosts yaml/openstack-controller-neutron.yml
-	
+
 计算节点的安装
 
 	ansible-playbook -i yaml/hosts yaml/openstack-compute-neutron.yml
-	
+
 11.dashboard 安装配置
 ------
 安装 dashboard
