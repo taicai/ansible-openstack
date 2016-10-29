@@ -10,3 +10,5 @@
     - openstack-nova-compute
     - sysfsutils
     - openstack-utils
+    - centos-release-qemu-ev
+    - qemu-kvm-ev
