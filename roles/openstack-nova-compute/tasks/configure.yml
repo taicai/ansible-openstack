@@ -6,6 +6,14 @@
   template: src=nova.conf.j2 dest=/etc/nova/nova.conf
   register: modify_nova_ini
 
+- name: copy libvirtd file
+  template: src=libvirtd.j2 dest=/etc/sysconfig/libvirtd
+  register: modify_libvirtd
+
+- name: copy libvirt.conf file
+  template: src=libvirtd.conf.j2 dest=/etc/libvirt/libvirtd.conf
+  register: modify_libvirt_conf
+
 - name: enable and restart libvirtd service
   service: name=libvirtd state=restarted enabled=yes
 

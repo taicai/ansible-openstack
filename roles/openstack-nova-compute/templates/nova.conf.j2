@@ -46,6 +46,10 @@ username = {{ keystone_auth_nova_username }}
 password = {{ keystone_auth_nova_password }}
 [libvirt]
 virt_type = kvm
+live_migration_flag = VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRATE_LIVE,VIR_MIGRATE_PERSIST_DEST,VIR_MIGRATE_TUNNELLED
+block_migration_flag  = VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRATE_LIVE,VIR_MIGRATE_NON_SHARED_INC
+live_migration_bandwidth = 50
+live_migration_uri = qemu+tcp://%s/system
 [matchmaker_redis]
 [matchmaker_ring]
 [metrics]
