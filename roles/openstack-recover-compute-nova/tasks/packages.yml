@@ -10,3 +10,5 @@
     - openstack-nova-compute-12.0.1-1.el7.noarch
     - sysfsutils
     - openstack-utils
+    - centos-release-qemu-ev
+    - qemu-kvm-ev
