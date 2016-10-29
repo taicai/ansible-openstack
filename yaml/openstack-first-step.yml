@@ -10,4 +10,4 @@
   remote_user: feiyu.liu
   sudo: yes
   roles:
-    - role: openstack-os-common
+    - { role: openstack-os-common }
