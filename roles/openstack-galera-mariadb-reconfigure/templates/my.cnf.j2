@@ -4,6 +4,8 @@ socket                          = /var/lib/mysql/mysql.sock
 bind-address                    = {{ bind_address }}
 port                            = 3306
 default_storage_engine          = InnoDB
+character-set-server            = utf8
+collation-server                = utf8_general_ci
 
 log_error                       = /var/log/mariadb/mariadb.log
 slow_query_log                  = 1
