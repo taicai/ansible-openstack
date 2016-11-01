@@ -1,8 +1,8 @@
 [DEFAULT]
-router_distributed = True
+#router_distributed = True
 core_plugin = ml2
-service_plugins = router
-allow_overlapping_ips = True
+service_plugins = 
+#allow_overlapping_ips = True
 bind_host = {{ inventory_hostname }}
 rpc_backend = rabbit
 auth_strategy = keystone
