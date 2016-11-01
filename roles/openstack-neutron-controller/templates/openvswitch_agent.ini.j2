@@ -1,14 +1,14 @@
 [ovs]
 local_ip = {{ inventory_hostname }}
-bridge_mappings = {{ neutron_ext_network_name }}:br-ex,{{ neutron_vlan_network_name }}:br-vlan
-network_vlan_ranges =  {{ neutron_ext_network_name }},{{ neutron_vlan_network_name }}:226:226
+bridge_mappings = {{ neutron_vlan_network_name }}:br-vlan
+network_vlan_ranges = {{ neutron_vlan_network_name }}:226:226
 integration_bridge = br-int
 tenant_network_type = vlan
 enable_tunneling = False
 [agent]
-l2_population = True
-enable_distributed_routing = True
-arp_responder = True
+#l2_population = True
+#enable_distributed_routing = True
+#arp_responder = True
 prevent_arp_spoofing = True
 [securitygroup]
 firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver
